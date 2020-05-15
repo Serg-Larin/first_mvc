@@ -33,7 +33,7 @@
   <component name="ProjectId" id="1ZiCwBu76C7f8OJmmviYU7Jldru" />
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/js/fontawesome/css" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/fontawesome/css" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -46,18 +46,18 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\S\Desktop\openserver\domains\mvc.local\lib\fontawesome\css" />
+      <recent name="C:\Users\S\Desktop\openserver\domains\mvc.local\lib\fonts" />
       <recent name="C:\Users\S\Desktop\openserver\domains\mvc.local\js\fontawesome\css" />
       <recent name="C:\Users\S\Desktop\openserver\domains\mvc.local\js\fontawesome\webfonts" />
       <recent name="C:\Users\S\Desktop\openserver\domains\mvc.local\lib\layoutsForFront" />
-      <recent name="C:\Users\S\Desktop\openserver\domains\mvc.local\views\user" />
-      <recent name="C:\Users\S\Desktop\openserver\domains\mvc.local\views\tag" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\S\Desktop\openserver\domains\mvc.local\js" />
       <recent name="C:\Users\S\Desktop\openserver\domains\mvc.local\lib" />
       <recent name="C:\Users\S\Desktop\openserver\domains\mvc.local\css" />
       <recent name="C:\Users\S\Desktop\openserver\domains\mvc.local" />
       <recent name="C:\Users\S\Desktop\openserver\domains\mvc.local\views\main" />
-      <recent name="C:\Users\S\Desktop\openserver\domains\mvc.local\views\main\временные" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -113,7 +113,7 @@
       <workItem from="1588923921734" duration="6065000" />
       <workItem from="1588943088049" duration="21546000" />
       <workItem from="1589202333718" duration="26096000" />
-      <workItem from="1589366342881" duration="37107000" />
+      <workItem from="1589366342881" duration="39490000" />
     </task>
     <servers />
   </component>

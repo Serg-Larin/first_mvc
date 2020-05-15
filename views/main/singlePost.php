@@ -1,4 +1,4 @@
-<?php include_once 'lib/layoutsForFront/qweheader.php' ?>
+<?php include_once 'lib/layoutsForFront/header.php' ?>
 <!--<pre>-->
 <?//////=$_SERVER['HTTP_REFERER']?>
 <!--    --><?php //print_r($arg) ?>
@@ -78,7 +78,7 @@
             </form>
         </div>
         <?php foreach ($arg['all_comments'] as $comment): ?>
-        <div class="comment" >
+        <div class="comment" style="display:none;">
             <div class="comment_img_space">
                 <div>
                     <img src="/uploads/user_images/187e1529063.jpg" id="img" alt="" class="comment_user_img">
@@ -129,49 +129,5 @@
 
     </div>
     </div>
-
-
-    <script>
-        $(document).ready(function() {
-            $('.comment_button').on('click',function () {
-                if($('.comment').css('display')=='none')
-                {
-                    $(this).parent().parent().find('.new_comment').css('display', 'block');
-                    $('.comment').css('display','flex');
-                    $('.comment_button').css('background-color','darkblue');
-
-                }else {
-                    $('.comment').css('display', 'none');
-                    $('.new_comment').css('display','none');
-                    $('.comment_button').css('background-color','lightskyblue');
-                }
-            })
-
-            $('.open_sub_comment_button').on('click', function () {
-                if($(this).parent().parent().find('.sub_comment')) {
-                    if ($(this).parent().parent().find('.sub_comment').css('display') == 'none') {
-                        $(this).parent().parent().find('.sub_comment').css('display','flex');
-                        $(this).parent().parent().find('.new_sub_comment').css('display','block');
-                    }
-                    else {
-                        $(this).parent().parent().find('.sub_comment').css('display','none');
-                        $(this).parent().parent().find('.new_sub_comment').css('display','none');
-                    }
-
-                }
-            })
-
-            $('#drop_down').click(function () {
-                if($(this).hasClass('fas fa-chevron-down fa-2x')){
-                    $(this).removeClass('fas fa-chevron-down fa-2x');
-                    $(this).addClass('fas fa-chevron-up fa-2x')
-                }
-                else {
-                    $(this).removeClass('fas fa-chevron-up fa-2x');
-                    $(this).addClass('fas fa-chevron-down fa-2x')
-                }
-            })
-
-        });
-    </script>
-<?php include_once 'lib/layoutsForFront/qwefooter.php' ?>
+    <script src="/js/singlePost.js"></script>
+<?php include_once 'lib/layoutsForFront/footer.php' ?>

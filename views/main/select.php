@@ -1,4 +1,4 @@
-<?php include_once 'lib/layoutsForFront/qweheader.php' ?>
+<?php include_once 'lib/layoutsForFront/header.php' ?>
 <!--<pre>-->
 <!--    --><?php //print_r($arg)?>
 <!--</pre>-->
@@ -90,4 +90,4 @@
                 </div>
             </div>
             </aside>
-<?php include_once 'lib/layoutsForFront/qwefooter.php' ?>
+<?php include_once 'lib/layoutsForFront/footer.php' ?>

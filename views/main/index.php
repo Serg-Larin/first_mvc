@@ -1,4 +1,4 @@
-<?php include_once 'lib/layoutsForFront/qweheader.php' ?>
+<?php include_once 'lib/layoutsForFront/header.php' ?>
 <!--<pre>-->
 <!--    --><?php //print_r($arg)?>
 <!--</pre>-->
@@ -106,4 +106,4 @@
 
                 <i class="fas fa-angle-right" style="color:lightskyblue; margin-left: 10px; "></i>
         </div>
-<?php include_once 'lib/layoutsForFront/qwefooter.php' ?>
+<?php include_once 'lib/layoutsForFront/footer.php' ?>
