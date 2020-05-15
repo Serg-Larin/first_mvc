@@ -1,0 +1,97 @@
+#logo{
+   height: 60px;
+   background-color: aliceblue;
+}
+.row{
+    height: 100vh;
+}
+.admin_list{
+    border-right: 1px solid black;
+    padding-right:0;
+    background-color: #00d3ff;
+    min-height: 800px;
+}
+.admin_list div:hover{
+    background-color: #343a40;
+    color: #00d3ff;
+}
+
+.admin_list div{
+    padding: 10px 10px 10px 25px;
+    margin-right: 0;
+}
+.admin_list a div{
+    /*margin: 2px 0 2px 0;*/
+    border-bottom: 1px solid #343a40;
+}
+.admin_list a {
+    text-decoration: none;
+    color: #343a40;
+}
+
+.edit{
+    cursor: pointer;
+    size: 2em;
+    color:yellow;
+}
+
+.edit:hover{
+    color:yellowgreen;
+}
+
+.remove{
+    cursor: pointer;
+    color: red;
+}
+
+.remove:hover{
+    color: darkred;
+}
+
+.fa-plus-square{
+   color: limegreen;
+}
+.fa-plus-square:hover{
+   color: forestgreen;
+}
+
+#content{
+
+ padding: 50px 0 0 50px;
+}
+.content{
+    min-height: 1200px;
+}
+#edit{
+    min-height: 900px;
+}
+#table{
+    margin-top:25px ;
+}
+.box {
+    overflow: hidden;
+    height: 200px;
+    width: 300px;
+}
+
+.box__in {
+    -webkit-column-width: 250px;
+    -moz-column-width: 250px;
+    column-width: 250px;
+    height: 100%;
+}
+
+.admin_pagination{
+    display: flex;
+    /*flex-direction: row;*/
+}
+.admin_pagination div{
+    width: 20px;
+    height: 20px;
+    margin: 5px;
+    background-color: #00d3ff;
+    color: white;
+}
+.admin_pagination div a{
+    text-decoration: none;
+}

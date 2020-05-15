@@ -1,0 +1,432 @@
+@font-face {
+    font-family: 'LavanderiaC';
+    src: url(../lib/fonts/ofont.ru_LavanderiaC.ttf);
+}
+@font-face {
+    font-family: 'Dreamcast';
+    src: url(/lib/fonts/ofont.ru_Dreamcast.ttf);
+}
+@font-face {
+    font-family: 'Mipgost';
+    src: url(../lib/fonts/ofont.ru_Mipgost.ttf);
+}
+
+
+body{
+    margin: 0;
+    font-family: 'Raleway', sans-serif;
+}
+a{
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+}
+/*Base settings*/
+
+li a {
+    color: #87CEFA;
+}
+
+.content{
+    width: 1200px;
+    margin: 0 auto;
+
+}
+.container{
+    display: flex;
+    flex-wrap: wrap;
+}
+.header{
+    flex: 0 1 100%;
+    background-color: lightskyblue;
+    /*background: url("http://download.local/img/2.jpg") 100% 100% no-repeat;*/
+    height: 350px;
+    background-size: cover;
+    font-family: 'Dreamcast', cursive;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.header__inscription{
+    padding: 10px;
+    background-color: white;
+    font-size: 2.5em;
+}
+.block_menu{
+    font-size: 1.5em;
+    font-family: 'Cabin', sans-serif;
+    font-weight: bold;
+    height: 100px;
+    flex: 0 1 100%;
+    background-color: #ffffff;
+    color: #fff;
+    padding: 0;
+}
+
+
+
+.menu{
+    margin: 0;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.menu__item{
+    margin-right: 15px;
+    list-style-type: none;
+}
+.menu__item:hover{
+    opacity: 0.5;
+    transition-timing-function: linear;
+    transition-duration: 1s;
+}
+.menu__item_active{
+    text-decoration: overline;
+}
+
+
+
+main{
+    flex:  1 1 80%;
+}
+.main_content{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.post{
+    height: 450px;
+    width: 290px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border:1px solid lightgrey;
+}
+.post__image{
+    height: 200px;
+    width: 100%;
+}
+.post__title{
+    padding-top: 3px;
+    font-family: 'LavanderiaC', cursive ;
+    width: 100%;
+    height: 45px;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: 300;
+}
+.post__title a{
+    color: lightskyblue;
+}
+
+.post__description{
+    height: 80px;
+    width: 95%;
+    font-family: 'Dreamcast', sans-serif;
+    flex: 0 0 auto;
+    overflow: hidden;
+    line-height: 1;
+    margin-bottom: 5px;
+}
+
+
+
+.post__component{
+    padding-left: 5px ;
+    height: 30px;
+    align-self: flex-start;
+    font-family: 'Mipgost', sans-serif ;
+    flex: 1 0 auto;
+}
+.post__author{
+    padding-left: 5px ;
+    align-self: flex-start;
+    font-family: 'Mipgost', sans-serif ;
+}
+
+.post__date{
+    align-self: flex-end;
+}
+
+
+
+.component_common_category{
+    background-color: lightskyblue;
+    margin-right: 2px;
+    cursor: pointer;
+}
+.component_common_tag{
+    background-color: gainsboro;
+    margin-right: 2px;
+    cursor: pointer;
+}
+.component_common_category:hover{
+    color: grey;
+}
+.component_common_tag:hover{
+    color: grey;
+}
+
+
+
+
+
+
+
+.sections{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.users, .categories, .tags {
+    border-bottom: 1px solid gainsboro;
+}
+.side_bar_block_name{
+    height: 30px;
+    margin-top: 10px;
+}
+.side_bar_block_body{
+
+}
+
+
+.users{
+    height: 250px;
+}
+
+
+
+.categories{
+    height: 250px;
+}
+.component_common_category{
+
+}
+
+
+
+.tags{
+    height: 250px;
+}
+.component_common_category{
+
+}
+
+
+
+aside{
+    flex: 0 0 200px;
+}
+.right_sidebar{
+    flex: 1 1 20%;
+}
+
+
+.pagination{
+    width: 100%;
+    height: 80px;
+    margin-top: 30px;
+    color: white;
+    font-size: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.pagination__block{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: lightskyblue;
+    color: #fff;
+    margin:5px;
+}
+div.pagination__block{
+}
+
+
+footer{
+    margin-top: 100px;
+    background-color: gainsboro;
+    flex: 0 1 100%;
+    height: 300px;
+}
+
+.single_post_container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /*justify-content: center;*/
+    flex-wrap: wrap;
+
+}
+.space_link_back{
+    display: flex;
+    align-items: center;
+    height: 100px;
+    width: 100%;
+
+}
+.single_post_all_content{
+    /*width: 800px;*/
+}
+.main_content_single_post{
+    /*flex: 1 1 auto;*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    /*min-height: 1800px;*/
+}
+.main_content_single_post{
+    width: 100%;
+}
+.single_post_all_content{
+    min-height: 1600px;
+}
+div.single_post_image{
+    /*width: 100%;*/
+    text-align: center;
+    height: 400px;
+}
+.single_post_image img{
+    width:800px;
+    height: 400px;
+}
+.single_post_title{
+    font-family: 'LavanderiaC', cursive ;
+    font-size: 2em;
+    /*width: 100%;*/
+    padding: 30px 30px;
+    text-align: center;
+
+}
+.single_post_author{
+    text-align: center;
+}
+.single_post_author_name{
+    /*text-align: left;*/
+    font-family: 'Mipgost', sans-serif ;
+    font-size: 1.5em;
+}
+.single_post_content{
+    margin-top: 20px;
+    text-align: center;
+    font-size: 1.2em;
+
+}
+.single_post_component{
+    /*width: 100%;*/
+    margin: 10px 10px;
+}
+.single_post_date{
+    /*width: 100%;*/
+    text-align: right;
+}
+
+.comment_button_space{
+    display: flex;
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+
+}
+div.comment_button{
+    cursor: pointer;
+    margin-top: 20px;
+    color: white;
+    font-size: 1.5em;
+    width: 6em;
+    height: 2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: lightskyblue;
+    border: 3px solid whitesmoke;
+}
+.new_comment{
+    display: none;
+    width: 50%;
+}
+.comment_user_name_space input{
+    margin-bottom: 10px;
+    width: 100%;
+}
+.new_comment textarea{
+    width: 100%;
+}
+
+.comment_submit_space input{
+    width: 50%;
+}
+.comment_space{
+    width: 800px;
+}
+div.sub_comment {
+  padding-left: 100px;
+}
+.comment, div .sub_comment{
+    /*width: 50%;*/
+    margin: 10px 10px;
+    display: none;
+    flex-wrap: wrap;
+}
+.comment_img_space, div .sub_comment_img_space{
+    display: flex;
+    width: 100%;
+}
+.date{
+    margin-top: 5px;
+    font-weight: bold;
+    width: 100%;
+}
+.comment_user_name, div .sub_comment_user_name{
+    padding-left: 5px;
+    align-self: center;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.comment_user_img, div .sub_comment_user_img{
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+}
+
+.open_sub_comment{
+    width: 100%;
+    height: 1em;
+    display: flex;
+    justify-content: center;
+}
+span.open_sub_comment_button{
+    color: darkgoldenrod;
+}
+
+
+.open_sub_comment_button:hover{
+    color: gray;
+    cursor: pointer;
+}
+
+.new_comment, .new_sub_comment{
+    margin-top: 20px;
+    display: none;
+    width: 50%;
+}
+.new_sub_comment {
+    margin-left: 100px;
+}
+.comment_user_name_space input, .new_sub_comment input{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+.new_comment textarea, .new_sub_comment textarea{
+    width: 100%;
+}
+
