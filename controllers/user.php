@@ -21,7 +21,6 @@ class user extends controllerAdmin implements resource{
             \Helper::out($this->model);
             $email = $_POST['email'];
             $login = $_POST['login'];
-//            $db->addUser($email,$login,$password);
         }
         $qwe =['qwe'=>'qwe'];
         $this->view->render($qwe);
@@ -62,14 +61,14 @@ class user extends controllerAdmin implements resource{
     public function add(){
         if(!empty($_POST)) {
             $this->model->addUser($_POST,$_FILES);
-//            \Helper::redirect('/admin/users');
+            \Helper::redirect('/admin/users');
         }
         $this->view->render();
     }
 
     public function delete($id){
         $this->model->deleteRecord($id);
-//        \Helper::redirect('/admin/users');
+        \Helper::redirect('/admin/users');
     }
 
 }

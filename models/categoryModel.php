@@ -12,7 +12,6 @@ class categoryModel extends Model{
     }
 
     public function belongToPost($id){
-        $fields =$this->getFields();
         return $this->connect->query("SELECT category_id FROM post_category WHERE post_id = '$id'")->fetchAll();
     }
     public function postCategory(){
