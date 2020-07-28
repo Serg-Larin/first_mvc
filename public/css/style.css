@@ -1,14 +1,14 @@
 @font-face {
     font-family: 'LavanderiaC';
-    src: url(../lib/fonts/ofont.ru_LavanderiaC.ttf);
+    src: url(../fonts/ofont.ru_LavanderiaC.ttf);
 }
 @font-face {
     font-family: 'Dreamcast';
-    src: url(/lib/fonts/ofont.ru_Dreamcast.ttf);
+    src: url(/public/fonts/ofont.ru_Dreamcast.ttf);
 }
 @font-face {
     font-family: 'Mipgost';
-    src: url(../lib/fonts/ofont.ru_Mipgost.ttf);
+    src: url(../fonts/ofont.ru_Mipgost.ttf);
 }
 
 

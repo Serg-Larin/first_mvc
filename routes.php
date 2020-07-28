@@ -5,27 +5,27 @@ return [
         'controller' => 'user',
         'action' => 'registration'
     ],
-    '(main)' =>[
+    '' =>[
         'controller' => 'main',
         'action'     => 'index'
     ],
-    '(main)/(\d*)' =>[
+    '(\d*)' =>[
         'controller' => 'main',
         'action'     => 'index'
     ],
-    '(main/footer)' =>[
+    '(/footer)' =>[
         'controller' => 'main',
         'action'     => 'footer'
     ],
-    '(main/category)/(\w+)' =>[
+    '(category)/(\w+)' =>[
         'controller' => 'main',
         'action'     => 'category'
     ],
-    '(main/tag)/(\w+)' =>[
+    '(tag)/(\w+)' =>[
         'controller' => 'main',
         'action'     => 'tag'
     ],
-    '(main/single)/(\d+)' =>[
+    '(single)/(\d+)' =>[
         'controller' => 'main',
         'action'     => 'singlePost'
     ],

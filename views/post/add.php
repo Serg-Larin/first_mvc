@@ -1,4 +1,4 @@
-<?php require_once 'lib/layoutsForAdmin/header.php'; ?>
+<?php require_once 'views/lib/layoutsForAdmin/header.php'; ?>
     <script>
         $(function(){
             $("select").bsMultiSelect();
@@ -46,4 +46,4 @@
 
             </div>
         </form>
-<?php require_once 'lib/layoutsForAdmin/footer.php'; ?>
+<?php require_once 'views/lib/layoutsForAdmin/footer.php'; ?>

@@ -33,7 +33,6 @@ class Router
                 for ($i=0;$i<count($matches);$i++){
                     $params['arg'.($i+1)] = $matches[$i];
                 }
-                print_r($params);
                 $matches = array_merge($this->routes[$route],$params);
                 return $matches;
             }
@@ -61,9 +60,6 @@ class Router
             $middleware_obj = new $middleware_array[$middleware];
 
         }
-
-        echo 'Controller: '.$controller.' <br>';
-        echo 'Action: '.$action.'<br>';
 
         $model = $controller.'Model';
 

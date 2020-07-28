@@ -1,4 +1,4 @@
-<?php require_once 'lib/layoutsForAdmin/header.php'; ?>
+<?php require_once 'views/lib/layoutsForAdmin/header.php'; ?>
 
     <h1><b>New user</b></h1>
     <hr>
@@ -50,4 +50,4 @@
             </form>
         </div>
     </div>
-<?php require_once 'lib/layoutsForAdmin/footer.php'; ?>
+<?php require_once 'views/lib/layoutsForAdmin/footer.php'; ?>

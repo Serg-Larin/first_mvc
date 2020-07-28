@@ -1,4 +1,4 @@
-<?php include_once 'lib/layoutsForFront/header.php' ?>
+<?php include_once 'views/lib/layoutsForFront/header.php' ?>
 <!--<pre>-->
 <!--    --><?php //print_r($arg)?>
 <!--</pre>-->
@@ -8,7 +8,7 @@
         </header>
             <nav class="block_menu">
                 <ul class="menu">
-                    <li class="menu__item menu__item_active"><a href="/main">Блог</a></li>
+                    <li class="menu__item menu__item_active"><a href="/">Блог</a></li>
                     <li class="menu__item"><a href="">Тратата</a></li>
                     <li class="menu__item"><a href="">О Нас</a></li>
                     <li class="menu__item"><a href="">О Вас</a></li>
@@ -20,7 +20,7 @@
                     <div class="post">
                         <label for="single_post_link"><img class="post__image"  src="<?=$post['image']?>" alt=""></label>
                         <div class="post__title" id="single_post_link">
-                            <a href="/main/single/<?=$post['id']?>"><?=$post['title']?></a>
+                            <a href="/single/<?=$post['id']?>"><?=$post['title']?></a>
                         </div>
                         <div class="post__description">
                         <?=$post['content']?>
@@ -34,7 +34,7 @@
                             <div class="post__component"><span>Категории:</span>
                                 <?php if(isset($post['categories'])):
                                 foreach ($post['categories'] as $category):?>
-                                <a href="/main/category/<?=$category['category'];?>" class="component_common_category">
+                                <a href="/category/<?=$category['category'];?>" class="component_common_category">
                                     <?=$category['category'];?>
                                 </a>
                                 <?php endforeach;
@@ -46,7 +46,7 @@
 
                                 <?php if(isset($post['tags'])):
                                 foreach ($post['tags'] as  $tag):?>
-                                <a href="/main/tag/<?=$tag['tag']?>" class="component_common_tag">
+                                <a href="/tag/<?=$tag['tag']?>" class="component_common_tag">
                                     <?=$tag['tag']?>
                                 </a>
                                 <?php endforeach;
@@ -72,7 +72,7 @@
                     </div>
                     <div class="side_bar_block_body">
                         <?php foreach ( $arg['categories'] as  $category):?>
-                            <a href="/main/category/<?=$category['category']?>" class="component_common_category"><?=$category['category']?></a>
+                            <a href="/category/<?=$category['category']?>" class="component_common_category"><?=$category['category']?></a>
                         <?php endforeach;?>
                     </div>
                 </div>
@@ -83,11 +83,11 @@
                     <div class="side_bar_block_body">
                        <?php foreach ($arg['tags'] as $tag):?>
 
-                            <a href="/main/tag/<?=$tag['tag']?>" class="component_common_tag"><?=$tag['tag']?></a>
+                            <a href="/tag/<?=$tag['tag']?>" class="component_common_tag"><?=$tag['tag']?></a>
 
                         <?php endforeach; ?>
                     </div>
                 </div>
             </div>
             </aside>
-<?php include_once 'lib/layoutsForFront/footer.php' ?>
+<?php include_once 'views/lib/layoutsForFront/footer.php' ?>

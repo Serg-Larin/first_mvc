@@ -1,4 +1,4 @@
-<?php require_once 'lib/layoutsForAdmin/header.php'; ?>
+<?php require_once 'views/lib/layoutsForAdmin/header.php'; ?>
     <h1><b>Categories</b></h1>
 
     <hr>
@@ -27,5 +27,5 @@
             </tbody>
         </table></div>
 
-<?php require_once 'lib/layoutsForAdmin/footer.php'; ?>
+<?php require_once 'views/lib/layoutsForAdmin/footer.php'; ?>
 

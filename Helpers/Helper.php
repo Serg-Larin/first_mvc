@@ -24,7 +24,7 @@ class Helper{
     }
     static public function Download($file,$path,$previous=''){
         if(!empty($file['name'])){
-            $save = 'uploads/'.$path.'/'. substr(md5(rand()),0,10).$file['name'];
+            $save = '/uploads/'.$path.'/'. substr(md5(rand()),0,10).$file['name'];
             move_uploaded_file($file['tmp_name'],$save );
             return '/'.$save;
             if(!empty($previous)){

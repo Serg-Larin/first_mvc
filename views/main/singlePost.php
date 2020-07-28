@@ -1,4 +1,4 @@
-<?php include_once 'lib/layoutsForFront/header.php' ?>
+<?php include_once 'views/lib/layoutsForFront/header.php' ?>
 <!--<pre>-->
 <?//////=$_SERVER['HTTP_REFERER']?>
 <!--    --><?php //print_r($arg) ?>
@@ -7,7 +7,7 @@
     <div class="single_post_container">
 <!--        <header class="header"><span class="header__inscription">HEADER</span></header>-->
         <nav class="space_link_back">
-            <a href="/main"><i class="fas fa-angle-double-left fa-2x" style="color: lightskyblue"></i></a>
+            <a href="/"><i class="fas fa-angle-double-left fa-2x" style="color: lightskyblue"></i></a>
         </nav>
 <div class="main_content_single_post" style="flex-wrap: wrap" >
     <div class="single_post_all_content">
@@ -32,7 +32,7 @@
         <?php
         if(isset($arg['categories'])):
         foreach ($arg['categories'] as $category): ?>
-        <a href="/main/category/<?=$category['category']?>" class="component_common_category">
+        <a href="/category/<?=$category['category']?>" class="component_common_category">
             <?=$category['category']?>
         </a>
         <?php endforeach;
@@ -48,7 +48,7 @@
         <?php
         if(isset($arg['tags'])):
             foreach ($arg['tags'] as $tag): ?>
-                <a href="/main/tag/<?=$tag['tag']?>" class="component_common_tag">
+                <a href="/tag/<?=$tag['tag']?>" class="component_common_tag">
                     <?=$tag['tag']?>
                 </a>
             <?php endforeach;
@@ -130,4 +130,4 @@
     </div>
     </div>
     <script src="/js/singlePost.js"></script>
-<?php include_once 'lib/layoutsForFront/footer.php' ?>
+<?php include_once 'views/lib/layoutsForFront/footer.php' ?>

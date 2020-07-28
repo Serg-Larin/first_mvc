@@ -1,4 +1,4 @@
-<?php require_once 'lib/layoutsForAdmin/header.php'; ?>
+<?php require_once 'views/lib/layoutsForAdmin/header.php'; ?>
 
     <h1><b>Tags</b></h1>
 
@@ -29,4 +29,4 @@
             </tbody>
         </table></div>
 
-<?php require_once 'lib/layoutsForAdmin/footer.php'; ?>
+<?php require_once 'views/lib/layoutsForAdmin/footer.php'; ?>
