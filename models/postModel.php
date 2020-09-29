@@ -1,5 +1,7 @@
 <?php
 
+namespace model;
+
 require_once 'Model.php';
 
 const COUNT_OF_NOTES = 15;

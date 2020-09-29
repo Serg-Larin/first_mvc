@@ -1,4 +1,6 @@
 <?php
+namespace model;
+
 include_once 'postModel.php';
 include_once 'userModel.php';
 include_once 'categoryModel.php';
@@ -12,10 +14,10 @@ class mainModel {
 
     public function __construct()
     {
-        $this->posts = new postModel();
-        $this->users = new userModel();
-        $this->categories = new categoryModel();
-        $this->tags = new tagModel();
+//        $this->posts = new postModel();
+//        $this->users = new userModel();
+//        $this->categories = new categoryModel();
+//        $this->tags = new tagModel();
     }
 
     public function index($page){

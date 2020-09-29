@@ -1,4 +1,7 @@
 <?php
+
+namespace model;
+
 require_once 'Model.php';
 
 class userModel extends Model {

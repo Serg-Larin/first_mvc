@@ -1,5 +1,6 @@
 <?php
 
+
 class Router
 {
     private $uri;
@@ -28,7 +29,6 @@ class Router
 
                 array_shift($matches);
                 array_shift($matches);
-//                Helper::out($this->routes);
                 $params=[];
                 for ($i=0;$i<count($matches);$i++){
                     $params['arg'.($i+1)] = $matches[$i];
@@ -42,34 +42,23 @@ class Router
 
     public function route()
     {
+        include_once 'controllers/main.php';
         $request = $this->maches();
+        /*Достаем контроллер*/
+        $controller = $request['controller'];
+        /*Достаем метод*/
+        $action = $request['action'];
 
-        $path = 'controllers/'.$request['controller'].'.php';
-        if(!file_exists($path)) die(PAGE_NOT_FOUND);
-
-        require_once $path;
-
-        $controller = array_shift($request);
-
-        $action = array_shift($request);
-
+        /*Достаем если емеется middleware*/
         if(isset($request['middleware'])){
-            $middleware = array_shift($request);
+            $middleware = $request['middleware'];
             $middleware_array = include_once 'components/middleware_array.php';
             include_once 'middleware/'.$middleware.'.php';
             $middleware_obj = new $middleware_array[$middleware];
-
         }
 
-        $model = $controller.'Model';
-
-        $path = $controller.'/'.$action;
-
-        $controller = 'controllers'.'\\'.$controller;
-
-        $obj = new $controller($path,$model);
+        $obj = new $controller;
 
         call_user_func_array([$obj, $action],$request);
-
     }
 }

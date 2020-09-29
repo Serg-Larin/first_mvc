@@ -6,7 +6,7 @@ return [
         'action' => 'registration'
     ],
     '' =>[
-        'controller' => 'main',
+        'controller' => controllers\main::class,
         'action'     => 'index'
     ],
     '(\d*)' =>[

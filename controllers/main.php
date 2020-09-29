@@ -9,6 +9,8 @@ class main extends controller {
 
         public function index($page=0)
             {
+            echo 'kok';
+
                 $this->view->render($this->model->index($page));
             }
          public function singlePost($id){
@@ -21,7 +23,7 @@ class main extends controller {
             if(isset($_POST['sub_comment'])){
                 $this->model->addSubComment($_POST);
             }
-             $this->view->render($post);
+             $this->view->render($post,'views/main/index.php');
          }
 
         public function footer(){

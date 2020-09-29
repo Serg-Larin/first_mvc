@@ -1,5 +1,7 @@
 <?php
 
+namespace model;
+
 require_once 'Model.php';
 
 class categoryModel extends Model{
