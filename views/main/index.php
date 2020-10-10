@@ -1,11 +1,4 @@
 <?php include_once 'views/lib/layoutsForFront/header.php' ?>
-<!--<pre>-->
-<!--    --><?php //print_r($arg)?>
-<!--</pre>-->
-<!--    <pre>-->
-<!--                --><?php //print_r($_SERVER)?>
-<!--            </pre>-->
-
     <div class="container">
         <header class="header">
             <div class="header__inscription"><?php echo isset($arg['blogName']) ? $arg['blogName'] : 'Blogich';?></div>
@@ -20,26 +13,31 @@
                 </ul>
             </nav>
                 <main class="main_content">
-                    <?php foreach ($arg['posts'] as $post):?>
+                    <?php foreach ($posts as $post):?>
+<!--                    --><?php //print_r($post);?>
                     <div class="post">
-                        <img class="post__image"  src="<?=$post['image']?>" alt="">
+                        <img class="post__image"  src="<?=$post->image?>" alt="">
                         <div class="post__title">
-                            <a href="/single/<?=$post['id']?>"><?=$post['title']?></a>
+                            <a href="/single/<?=$post->getId()?>">
+                                <?=$post->title?>
+                            </a>
                         </div>
                         <div class="post__description">
-                        <?=$post['content']?>
+                        <?=$post->content?>
                         </div>
                             <div class="post__author">
                                 <span>Автор:</span>
                                 <a href="">
-                                    <?=$post['login']?>
+                                    <?=$post->user()->login?>
                                 </a>
                             </div>
                             <div class="post__component"><span>Категории:</span>
-                                <?php if(isset($post['categories'])):
-                                foreach ($post['categories'] as $category):?>
-                                    <a href="/category/<?=$category['category'];?>" class="component_common_category">
-                                        <?=$category['category'];?>
+                                <?php if(is_array($post->categories())):
+                                foreach ($post->categories() as $category):
+                                    ?>
+
+                                    <a href="/category/<?=$category->name;?>" class="component_common_category">
+                                        <?=$category->name;?>
                                     </a>
                                 <?php endforeach;
                                 endif;
@@ -47,11 +45,10 @@
                             </div>
                             <div class="post__component">
                                 <span>Тэги:</span>
-
-                                <?php if(isset($post['tags'])):
-                                foreach ($post['tags'] as  $tag):?>
-                                    <a href="/tag/<?=$tag['tag'];?>" class="component_common_tag">
-                                        <?=$tag['tag'];?>
+                                <?php if(is_array($post->tags())):
+                                foreach ($post->tags() as  $tag):?>
+                                    <a href="/tag/<?=$tag->tag;?>" class="component_common_tag">
+                                        <?=$tag->name;?>
                                     </a>
                                 <?php endforeach;
                                 endif;
@@ -75,8 +72,8 @@
                         Categories:
                     </div>
                     <div class="side_bar_block_body">
-                        <?php foreach ( $arg['categories'] as  $category):?>
-                            <a href="/category/<?=$category['category']?>" class="component_common_category"><?=$category['category']?></a>
+                        <?php foreach ( $categories as  $category):?>
+                            <a href="/category/<?=$category->name?>" class="component_common_category"><?=$category->name?></a>
                         <?php endforeach;?>
                     </div>
                 </div>
@@ -85,9 +82,9 @@
                         Tags:
                     </div>
                     <div class="side_bar_block_body">
-                       <?php foreach ($arg['tags'] as $tag):?>
+                       <?php foreach ($tags as $tag):?>
 
-                            <a href="/tag/<?=$tag['tag']?>" class="component_common_tag"><?=$tag['tag']?></a>
+                            <a href="/tag/<?=$tag->name?>" class="component_common_tag"><?=$tag->name?></a>
 
                         <?php endforeach; ?>
                     </div>

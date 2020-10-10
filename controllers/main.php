@@ -1,17 +1,24 @@
 <?php
 namespace controllers;
 
-require_once 'heritable/controller.php';
-
-use app\controllers\controller;
+//use app\controllers\heritable\controller;
+use controllers\heritable\controller;
+use model\Post;
+use model\Category;
+use model\Tag;
 
 class main extends controller {
 
         public function index($page=0)
             {
-            echo 'kok';
-
-                $this->view->render($this->model->index($page));
+                $posts = Post::findAll();
+                $categories = Category::findAll();
+                $tags = Tag::findAll();
+                view('views.main.index',compact(
+                    'posts',
+                              'categories',
+                                    'tags'
+                ));
             }
          public function singlePost($id){
             $post = $this->model->getPostByPostId($id);

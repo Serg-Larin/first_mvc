@@ -42,13 +42,18 @@ class Router
 
     public function route()
     {
-        include_once 'controllers/main.php';
         $request = $this->maches();
+        print_r($request);
         /*Достаем контроллер*/
-        $controller = $request['controller'];
+        if(isset($request['controller'])&&!empty($request['controller'])) {
+            $controller = $request['controller'];
+            unset($request['controller']);
+        }
         /*Достаем метод*/
-        $action = $request['action'];
-
+        if(isset($request['action'])&&!empty($request['action'])) {
+            $action = $request['action'];
+            unset($request['action']);
+        }
         /*Достаем если емеется middleware*/
         if(isset($request['middleware'])){
             $middleware = $request['middleware'];

@@ -2,7 +2,8 @@
 use controllers\main;
 $projectPath = '/var/www/html/';
 chdir($projectPath.'first_mvc');
-error_reporting (E_ALL);
+ini_set("display_errors", 1);
+error_reporting(E_ALL);
 //E_RECOVERABLE_ERROR
 
 
@@ -15,6 +16,7 @@ spl_autoload_register(function ($class_name) {
 });
 
 include_once 'Helpers/Helper.php';
+include_once 'Helpers/functions.php';
 include_once 'Router.php';
 include_once 'Errors.php';
 include_once 'components/Config.php';

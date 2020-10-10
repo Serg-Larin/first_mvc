@@ -9,8 +9,8 @@ return [
         'controller' => controllers\main::class,
         'action'     => 'index'
     ],
-    '(\d*)' =>[
-        'controller' => 'main',
+    '/qwe' =>[
+        'controller' => controllers\main::class,
         'action'     => 'index'
     ],
     '(/footer)' =>[

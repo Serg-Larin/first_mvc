@@ -12,23 +12,17 @@ class mainModel {
     private $categories;
     private $tags;
 
-    public function __construct()
-    {
-//        $this->posts = new postModel();
-//        $this->users = new userModel();
-//        $this->categories = new categoryModel();
-//        $this->tags = new tagModel();
-    }
+    public function index($page=''){
 
-    public function index($page){
-        $filling['posts'] = $this->posts->selectAllRecordsPagination($page);
-        $filling['pages'] = $this->posts->pagination();
-        $filling['tags'] = $this->tags->postTags();
-        $filling['categories'] = $this->categories->postCategory();
-        $filling['users'] = $this->users->selectAllRecords();
-        $this->brute($filling['posts'],$filling['tags'],'tags');
-        $this->brute($filling['posts'],$filling['categories'],'categories');
-        return $filling;
+
+//        $filling['posts'] = $this->posts->selectAllRecordsPagination($page);
+//        $filling['pages'] = $this->posts->pagination();
+//        $filling['tags'] = $this->tags->postTags();
+//        $filling['categories'] = $this->categories->postCategory();
+//        $filling['users'] = $this->users->selectAllRecords();
+//        $this->brute($filling['posts'],$filling['tags'],'tags');
+//        $this->brute($filling['posts'],$filling['categories'],'categories');
+//        return $filling;
 
     }
 

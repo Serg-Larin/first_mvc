@@ -4,8 +4,8 @@ namespace controllers;
 require_once 'heritable/controllerAdmin.php';
 
 require_once 'heritable/resource.php';
-require_once 'models/categoryModel.php';
-require_once 'models/tagModel.php';
+require_once 'model/categoryModel.php';
+require_once 'model/tagModel.php';
 
 use controllerAdmin;
 use heritable\resource;
