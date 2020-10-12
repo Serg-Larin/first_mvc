@@ -15,7 +15,7 @@ function view($path,$arguments = [])
     if(gettype($arguments) === 'array' && $arguments !== []) {
         extract($arguments, EXTR_OVERWRITE);
     }
-    $pathToView = str_replace('.','/',$path).'.php';
+    $pathToView = 'views/'.str_replace('.','/',$path).'.php';
     if(file_exists($pathToView)){
         require_once $pathToView;
     }else{

@@ -6,11 +6,15 @@ return [
         'action' => 'registration'
     ],
     '' =>[
-        'controller' => controllers\main::class,
+        'controller' => controllers\MainController::class,
         'action'     => 'index'
     ],
+    '(single)/(\d+)' =>[
+        'controller' => controllers\MainController::class,
+        'action'     => 'singlePost'
+    ],
     '/qwe' =>[
-        'controller' => controllers\main::class,
+        'controller' => controllers\MainController::class,
         'action'     => 'index'
     ],
     '(/footer)' =>[
@@ -25,10 +29,7 @@ return [
         'controller' => 'main',
         'action'     => 'tag'
     ],
-    '(single)/(\d+)' =>[
-        'controller' => 'main',
-        'action'     => 'singlePost'
-    ],
+
 
 
             //admin/categories

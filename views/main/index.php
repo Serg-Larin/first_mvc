@@ -1,5 +1,5 @@
-<?php include_once 'views/lib/layoutsForFront/header.php' ?>
-    <div class="container">
+<?php include_once 'views/lib/layoutsForFront/header.php';?>
+<div class="container">
         <header class="header">
             <div class="header__inscription"><?php echo isset($arg['blogName']) ? $arg['blogName'] : 'Blogich';?></div>
         </header>

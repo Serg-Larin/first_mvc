@@ -1,7 +1,7 @@
 <?php include_once 'views/lib/layoutsForFront/header.php' ?>
 <!--<pre>-->
 <?//////=$_SERVER['HTTP_REFERER']?>
-<!--    --><?php //print_r($arg) ?>
+    <?php print_r($post) ?>
 <!--</pre>-->
 
     <div class="single_post_container">
@@ -12,28 +12,28 @@
 <div class="main_content_single_post" style="flex-wrap: wrap" >
     <div class="single_post_all_content">
     <div class="single_post_image" style="width: 100%;">
-        <img src="<?=$arg['image']?>" alt="" width="600px" height="400px">
+        <img src="<?=$post->image?>" alt="" width="600px" height="400px">
     </div>
     <div class="single_post_title" >
-        <span><?=$arg['title']?></span>
+        <span><?=$post->title?></span>
     </div>
     <div class="single_post_author">
         <span>author: </span>
         <span class="single_post_author_name">
-            <?=$arg['login']?>
+            <?=$post->user()->login?>
         </span>
     </div>
     <div class="single_post_content">
         <span>
-            <?=$arg['content']?>
+            <?=$post->content?>
         </span>
     </div>
     <div class="single_post_component"><span>Категории:</span>
         <?php
-        if(isset($arg['categories'])):
-        foreach ($arg['categories'] as $category): ?>
-        <a href="/category/<?=$category['category']?>" class="component_common_category">
-            <?=$category['category']?>
+        if(isset($categories) && !empty($categories)):
+        foreach ($categories as $category): ?>
+        <a href="/category/<?=$category->name?>" class="component_common_category">
+            <?=$category->name?>
         </a>
         <?php endforeach;
         endif;
@@ -42,14 +42,11 @@
     </div>
     <div class="single_post_component">
         <span>Тэги:</span>
-        <a href="" class="component_common_tag">
-            Автор
-        </a>
         <?php
-        if(isset($arg['tags'])):
-            foreach ($arg['tags'] as $tag): ?>
-                <a href="/tag/<?=$tag['tag']?>" class="component_common_tag">
-                    <?=$tag['tag']?>
+        if(isset($tags) && !empty($tags)):
+            foreach ($tags as $tag): ?>
+                <a href="/tag/<?=$tag->name?>" class="component_common_tag">
+                    <?=$tag->name?>
                 </a>
             <?php endforeach;
         endif;

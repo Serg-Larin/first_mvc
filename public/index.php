@@ -1,5 +1,5 @@
 <?php
-use controllers\main;
+use controllers\mainController;
 $projectPath = '/var/www/html/';
 chdir($projectPath.'first_mvc');
 ini_set("display_errors", 1);
@@ -20,9 +20,6 @@ include_once 'Helpers/functions.php';
 include_once 'Router.php';
 include_once 'Errors.php';
 include_once 'components/Config.php';
-
-
-$object = new main();
 
 ////include_once 'autoload.php';
 session_start();

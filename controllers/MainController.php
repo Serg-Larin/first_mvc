@@ -7,30 +7,24 @@ use model\Post;
 use model\Category;
 use model\Tag;
 
-class main extends controller {
+class MainController extends controller {
 
         public function index($page=0)
             {
                 $posts = Post::findAll();
                 $categories = Category::findAll();
                 $tags = Tag::findAll();
-                view('views.main.index',compact(
+                return view('main.index',compact(
                     'posts',
                               'categories',
                                     'tags'
                 ));
             }
          public function singlePost($id){
-            $post = $this->model->getPostByPostId($id);
-            $post['all_comments'] = $this->model->getCommentsById($id);
-
-            if(isset($_POST['comment'])){
-                $this->model->addComment($id,$_POST);
-            }
-            if(isset($_POST['sub_comment'])){
-                $this->model->addSubComment($_POST);
-            }
-             $this->view->render($post,'views/main/index.php');
+            $post = Post::getById($id);
+            $categories = $post->categories();
+            $tags = $post->tags();
+            return view('main.singlePost',compact('post'));
          }
 
         public function footer(){

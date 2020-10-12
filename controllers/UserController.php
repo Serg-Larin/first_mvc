@@ -8,7 +8,7 @@ use controllerAdmin;
 use heritable\resource;
 
 
-class user extends controllerAdmin implements resource{
+class UserController extends controllerAdmin implements resource{
 
     const BLOGGER = 1;
     const ADMIN = 2;

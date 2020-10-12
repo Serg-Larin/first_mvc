@@ -8,7 +8,8 @@ use controllerAdmin;
 use heritable\resource;
 
 
-class tag extends controllerAdmin implements resource {
+class CategoryController extends controllerAdmin implements resource {
+
     public function display(){
         $params=$this->model->selectAllRecords();
         $this->view->render($params);
@@ -17,26 +18,25 @@ class tag extends controllerAdmin implements resource {
     public function edit($id){
         $params = $this->model->selectRecordById($id);
         if(!empty($_POST)) {
-            $this->model->update($_POST,'tag');
-            \Helper::redirect('/admin/tags');
+            $this->model->update($_POST,'category');
+            \Helper::redirect('/admin/categories');
         }
         $this->view->render($params);
+
     }
 
     public function add(){
         if(!empty($_POST)) {
-            $this->model->insert($_POST,'tag');
-            \Helper::redirect('/admin/tags');
+            $this->model->insert($_POST,'category');
+            \Helper::redirect('/admin/categories');
         }
         $this->view->render();
     }
     public function delete($id){
         $this->model->deleteRecord($id);
-        \Helper::redirect('/admin/tags');
+        \Helper::redirect($this->url);
     }
-
-    public function getTagsStatus($id){
-       echo json_encode($this->model->belongToPost($id));
+    public function getCategoryStatus($id){
+        echo json_encode($this->model->belongToPost($id));
     }
-
 }

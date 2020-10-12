@@ -10,7 +10,7 @@ require_once 'model/tagModel.php';
 use controllerAdmin;
 use heritable\resource;
 
-class post extends controllerAdmin implements resource{
+class postController extends controllerAdmin implements resource{
 
     public function display($page=0){
         $params['posts']=$this->model->selectAllRecordsPagination($page);
