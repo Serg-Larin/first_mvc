@@ -8,7 +8,7 @@ error_reporting(E_ALL);
 
 
 spl_autoload_register(function ($class_name) {
-    $path = CrossPlatformSettings::getSettingsByKey('autoloadPath',compact('class_name'));
+    $path = CrossPlatformSettings::getAutoloadPath($class_name);
     if (file_exists($path)){
         require_once $path;
     }

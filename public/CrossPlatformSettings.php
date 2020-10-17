@@ -8,16 +8,14 @@ class CrossPlatformSettings {
 
     public static $currentPlatform;
 
-    protected static function getSettingsArray($params=[]){
+    protected static function getSettingsArray(){
        return [
             self::LINUX =>[
                 'changeDir'     =>   '/var/www/html/first_mvc',
-                'autoloadPath'  =>   str_replace('\\','/',$params['class_name'].'.php'),
                 'password'      =>   'Temp123#$'
             ],
             self::WINDOWS =>[
                 'changeDir'     =>   '..',
-                'autoloadPath'  =>   $params['class_name']. '.php',
                 'password'      =>   ''
             ]
         ];
@@ -33,14 +31,19 @@ class CrossPlatformSettings {
                 case 'Linux':
                     self::$currentPlatform = self::LINUX;
             }
-        } else {
-            return self::$currentPlatform;
         }
+        return self::$currentPlatform;
     }
 
-    public static function getSettingsByKey($key,$param=[]){
-        self::checkPlatform();
-        return self::getSettingsArray($param)[self::$currentPlatform][$key];
+    public static function getSettingsByKey($key){
+        return self::getSettingsArray()[self::checkPlatform()][$key];
     }
 
+    public static function getAutoloadPath($className){
+        $path =[
+            self::LINUX     =>   str_replace('\\','/',$className.'.php'),
+            self::WINDOWS   =>   $className.'.php'
+        ];
+        return $path[self::checkPlatform()];
+    }
 }
