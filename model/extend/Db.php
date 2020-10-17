@@ -12,7 +12,7 @@ class Db
     {
         $this->connect = new \PDO(
             'mysql:host='.DB_HOST.';dbname='.DB_NAME,
-            DB_USER,DB_PASSWORD);
+            DB_USER,\CrossPlatformSettings::getSettingsByKey('password'));
 
         $this->connect->exec('SET NAMES UTF8');
     }
