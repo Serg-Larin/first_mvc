@@ -20,7 +20,6 @@ abstract class ActiveRecordEntity
         $columnIn = self::underscoreToCamelCase($thisColumn?$thisColumn:strtolower(self::getClass($class)).'_id');
         $columnOut = $thatColumn?$thatColumn:'id';
         $table = $table?$table:$class::getTableName();
-
         $entities = $db->query(
             "SELECT * FROM " . $table . " WHERE $columnOut=:$columnOut;",
             [':'.$columnOut => $this->$columnIn],
@@ -38,6 +37,7 @@ abstract class ActiveRecordEntity
             [':'.$thatColumn => $this->$thisColumn],
             $class
         );
+
         return $entities ? $entities[0] : null;
     }
     protected function hasMany($class,$thatColumn='',$thisColumn='',$table=''){
@@ -80,13 +80,13 @@ abstract class ActiveRecordEntity
         $secondJoinColumn = $secondJoinColumn?$secondJoinColumn:strtolower($relationClass).'_id';
         $comparisonColumn = $comparisonColumn?$comparisonColumn:strtolower($currentClass).'_id';
 
-
         $entities = $db->query(
-            "SELECT * FROM  $joinTable as j JOIN $table as i ON j.$firstJoinColumn = i.$secondJoinColumn WHERE i.$comparisonColumn=:id;",
+            "SELECT * FROM  $joinTable as j JOIN $table as i ON j.$firstJoinColumn = i.$secondJoinColumn WHERE i.$secondJoinColumn=:id;",
             [':id'=>$this->id],
             $class
         );
         return $entities ? $entities : null;
+
     }
 
     public static function getById(int $id): ?self

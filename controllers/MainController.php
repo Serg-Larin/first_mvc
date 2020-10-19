@@ -22,9 +22,7 @@ class MainController extends controller {
             }
          public function singlePost($id){
             $post = Post::getById($id);
-            $categories = $post->categories();
-            $tags = $post->tags();
-            return view('main.singlePost',compact('post'));
+             return view('main.singlePost',compact('post'));
          }
 
         public function footer(){

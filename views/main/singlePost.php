@@ -1,7 +1,7 @@
 <?php include_once 'views/lib/layoutsForFront/header.php' ?>
 <!--<pre>-->
 <?//////=$_SERVER['HTTP_REFERER']?>
-    <?php print_r($post) ?>
+<!--    --><?php //print_r($post) ?>
 <!--</pre>-->
 
     <div class="single_post_container">
@@ -74,20 +74,24 @@
                 </div>
             </form>
         </div>
-        <?php foreach ($arg['all_comments'] as $comment): ?>
+
+
+        <?php
+        if(!empty($post->comments())):
+        foreach ($post->comments() as $comment): ?>
         <div class="comment" style="display:none;">
             <div class="comment_img_space">
                 <div>
                     <img src="/uploads/user_images/187e1529063.jpg" id="img" alt="" class="comment_user_img">
                 </div>
                 <div class="comment_user_name">
-                    <?=$comment['email']?>
+                    <?=$comment->email?>
                 </div>
             </div>
             <div class="comment_content">
-                <span><?=$comment['content']?></span>
+                <span><?=$comment->content?></span>
             </div>
-            <div class="date"><?=$comment['date']?></div>
+            <div class="date"><?=$comment->date?></div>
             <div class="open_sub_comment">
                 <span class="open_sub_comment_button" ><i id="drop_down" class="fas fa-chevron-down fa-2x"></i></span>
             </div>
@@ -105,24 +109,28 @@
                     </div>
                 </form>
             </div>
-           <?php foreach ($comment['sub_comments'] as $subcomment):?>
+           <?php foreach ($comment->sub_comment() as $subcomment):?>
+
             <div class="sub_comment">
                 <div class="sub_comment_img_space">
                     <div>
                         <img src="/uploads/user_images/187e1529063.jpg" id="img" alt="" class="sub_comment_user_img">
                     </div>
                     <div class="comment_user_name">
-                        <?php print_r($subcomment['email'])?>
+                        <?=$subcomment->email?>
                     </div>
                 </div>
                 <div class="comment_content">
-                    <span><?=$subcomment['content']?></span>
+                    <span><?=$subcomment->content?></span>
                 </div>
-                <div class="date"><?=$subcomment['date']?></div>
+                <div class="date"><?=$subcomment->date?></div>
             </div>
             <?php endforeach;?>
         </div>
-        <?php endforeach;?>
+        <?php
+              endforeach;
+              endif;
+        ?>
 
     </div>
     </div>

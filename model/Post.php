@@ -3,14 +3,10 @@
 namespace model;
 
 use model\extend\Model;
-use model\User;
 
 class Post extends Model
 {
     public static $tableName = 'posts';
-    public static function qwe(){
-        print_r('asdzxc');
-    }
 
     public function categories(){
         return $this->belongsToMany(Category::class);
@@ -20,6 +16,9 @@ class Post extends Model
     }
     public function tags(){
         return $this->belongsToMany(Tag::class);
+    }
+    public function comments(){
+        return $this->hasMany(Comment::class,'post_id','','post_comment');
     }
 //
 //    public function selectAllRecordsPagination($page=0)
