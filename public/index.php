@@ -1,15 +1,14 @@
 <?php
-use controllers\mainController;
-$projectPath = '/var/www/html/';
-chdir($projectPath.'first_mvc');
+
+include_once 'CrossPlatformSettings.php';
+chdir(CrossPlatformSettings::getSettingsByKey('changeDir'));
 ini_set("display_errors", 1);
 error_reporting(E_ALL);
-//E_RECOVERABLE_ERROR
 
 
 
 spl_autoload_register(function ($class_name) {
-    $path = str_replace('\\','/',$class_name.'.php');
+    $path = CrossPlatformSettings::getAutoloadPath($class_name);
     if (file_exists($path)){
         require_once $path;
     }
