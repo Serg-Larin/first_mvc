@@ -14,6 +14,8 @@ spl_autoload_register(function ($class_name) {
     }
 });
 
+require 'vendor/autoload.php';
+
 include_once 'Helpers/Helper.php';
 include_once 'Helpers/functions.php';
 include_once 'Router.php';

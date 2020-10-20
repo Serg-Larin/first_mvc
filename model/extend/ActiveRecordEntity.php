@@ -56,27 +56,42 @@ abstract class ActiveRecordEntity
     /**
      * belongsToMany - Отношение между таблицами Много ко многому.
      *
-     * @param string $class
-     * @param string $table
-     * @param string $firstJoinColumn
-     * @param string $secondJoinColumn
+     * @param string $class - Класс с которым у нас связь
+     * @param string $table - Таблица в которой у нас
+     * @param string $firstJoinColumn - Колонка соответствия в первой таблице (в основном id)
+     * @param string $secondJoinColumn - Колонка соответствия во второй таблице (в основном id)
      * @return array|null
      */
 
-    protected function belongsToMany($class,$table='',$firstJoinColumn='',$secondJoinColumn=''){
-        $relationClass = substr($class, strrpos($class, '\\') + 1);
-        $currentClass = substr(get_class($this), strrpos(get_class($this), '\\') + 1);
-        $db = Db::getInstance();
+    protected function belongsToMany($class,$table='',$firstJoinColumn='',$secondJoinColumn='',$comparsionColum =''){
+           /*
+            - вытягиваем название класса с неймспейсом
+            - убираем неймспейсы
+            - преобразуем строку в нижний регистр
+           */
+          /*Класс из которого был создан метод*/
+          $currentClass = strtolower(substr(strrchr(get_class($this), "\\"), 1));
+
+          /*Класс объект которого будет возвращен*/
+          $returnDataClass = strtolower(substr(strrchr(get_class($class), "\\"), 1));
+
+          echo $currentClass.'<br>';
+          echo $returnDataClass.'<br>';
+
+
+//        $relationClass = substr($class, strrpos($class, '\\') + 1);
+//        $currentClass = substr(get_class($this), strrpos(get_class($this), '\\') + 1);
+//        $db = Db::getInstance();
         $joinTable = $class::getTableName();
 
-        if($table==''){
-            if(substr($class,0,1)<substr(get_class($this),0,1)){
-                $table=strtolower($relationClass.'_'.$currentClass);
-            } else  $table = strtolower($currentClass.'_'.$relationClass);
-        }
+//        if($table==''){
+//            if(substr($class,0,1)<substr(get_class($this),0,1)){
+//                $table=strtolower($relationClass.'_'.$currentClass);
+//            } else  $table = strtolower($currentClass.'_'.$relationClass);
+//        }
 
-        $firstJoinColumn = $firstJoinColumn?$firstJoinColumn:'id';
-        $secondJoinColumn = $secondJoinColumn?$secondJoinColumn:strtolower($relationClass).'_id';
+//        $firstJoinColumn = $firstJoinColumn?$firstJoinColumn:'id';
+//        $secondJoinColumn = $secondJoinColumn?$secondJoinColumn:strtolower($relationClass).'_id';
 
         $entities = $db->query(
             "SELECT * FROM  $joinTable as j JOIN $table as i ON j.$firstJoinColumn = i.$secondJoinColumn WHERE i.$secondJoinColumn=:id;",

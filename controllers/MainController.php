@@ -14,7 +14,7 @@ class MainController extends controller {
                 $posts = Post::findAll();
                 $categories = Category::findAll();
                 $tags = Tag::findAll();
-                return view('main.index',compact(
+                return view('main.index.blade',compact(
                     'posts',
                               'categories',
                                     'tags'
@@ -22,7 +22,11 @@ class MainController extends controller {
             }
          public function singlePost($id){
             $post = Post::getById($id);
-             return view('main.singlePost',compact('post'));
+            $categories = $post->categories();
+            print_r($categories);
+             $tags = $post->tags();
+             print_r($tags);
+             return view('main.singlePost',compact('post','categories','tags'));
          }
 
         public function footer(){

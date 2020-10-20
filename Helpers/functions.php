@@ -1,4 +1,7 @@
 <?php
+
+use Jenssegers\Blade\Blade;
+
 /**
  *
  * @param $path string
@@ -15,11 +18,8 @@ function view($path,$arguments = [])
     if(gettype($arguments) === 'array' && $arguments !== []) {
         extract($arguments, EXTR_OVERWRITE);
     }
-    $pathToView = 'views/'.str_replace('.','/',$path).'.php';
-    if(file_exists($pathToView)){
-        require_once $pathToView;
-    }else{
-        getError(VIEW_IS_NOT_FOUND,$path);
+
+        $blade = new Blade('views', 'cache');
+        echo $blade->make($path,$arguments)->render();
     }
-}
 
