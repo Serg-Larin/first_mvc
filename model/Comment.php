@@ -4,6 +4,14 @@ namespace model;
 
 use model\extend\Model;
 
+/**
+ *
+ * @property int    id
+ * @property int    post_id
+ * @property string content
+ * @property string email
+ * @property string date
+ */
 
 class Comment extends Model
 {

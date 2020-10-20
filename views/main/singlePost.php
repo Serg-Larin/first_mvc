@@ -109,7 +109,10 @@
                     </div>
                 </form>
             </div>
-           <?php foreach ($comment->sub_comment() as $subcomment):?>
+           <?php
+           if(!empty($comment->sub_comment())):
+           foreach ($comment->sub_comment() as $subcomment):
+               ?>
 
             <div class="sub_comment">
                 <div class="sub_comment_img_space">
@@ -125,7 +128,9 @@
                 </div>
                 <div class="date"><?=$subcomment->date?></div>
             </div>
-            <?php endforeach;?>
+            <?php endforeach;
+            endif;
+            ?>
         </div>
         <?php
               endforeach;

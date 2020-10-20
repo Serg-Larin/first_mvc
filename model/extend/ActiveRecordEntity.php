@@ -60,11 +60,10 @@ abstract class ActiveRecordEntity
      * @param string $table
      * @param string $firstJoinColumn
      * @param string $secondJoinColumn
-     * @param string $comparisonColumn
      * @return array|null
      */
 
-    protected function belongsToMany($class,$table='',$firstJoinColumn='',$secondJoinColumn='',$comparisonColumn=''){
+    protected function belongsToMany($class,$table='',$firstJoinColumn='',$secondJoinColumn=''){
         $relationClass = substr($class, strrpos($class, '\\') + 1);
         $currentClass = substr(get_class($this), strrpos(get_class($this), '\\') + 1);
         $db = Db::getInstance();
@@ -78,7 +77,6 @@ abstract class ActiveRecordEntity
 
         $firstJoinColumn = $firstJoinColumn?$firstJoinColumn:'id';
         $secondJoinColumn = $secondJoinColumn?$secondJoinColumn:strtolower($relationClass).'_id';
-        $comparisonColumn = $comparisonColumn?$comparisonColumn:strtolower($currentClass).'_id';
 
         $entities = $db->query(
             "SELECT * FROM  $joinTable as j JOIN $table as i ON j.$firstJoinColumn = i.$secondJoinColumn WHERE i.$secondJoinColumn=:id;",

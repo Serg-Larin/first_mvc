@@ -4,19 +4,41 @@ namespace model;
 
 use model\extend\Model;
 
+/**
+ *
+ * @property int       id
+ * @property int       author_id
+ * @property string    title
+ * @property string    content
+ * @property string    image
+ * @property string    date
+ */
+
 class Post extends Model
 {
     public static $tableName = 'posts';
 
+    /**
+     * @return Category|array
+     */
     public function categories(){
         return $this->belongsToMany(Category::class);
     }
+    /**
+     * @return User|array
+     */
     public function user(){
         return $this->belongsTo(User::class,'author_id','');
     }
+    /**
+     * @return Tag|array
+     */
     public function tags(){
         return $this->belongsToMany(Tag::class);
     }
+    /**
+     * @return Comment|array
+     */
     public function comments(){
         return $this->hasMany(Comment::class,'post_id','','post_comment');
     }
