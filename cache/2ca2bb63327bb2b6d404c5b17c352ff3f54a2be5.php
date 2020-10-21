@@ -1,4 +1,5 @@
 <?php $__env->startSection('content'); ?>
+
 <div class="container">
         <header class="header">
             <div class="header__inscription"><?php echo e(isset($arg['blogName']) ? $arg['blogName'] : 'Blogich'); ?></div>
@@ -14,7 +15,7 @@
             </nav>
                 <main class="main_content">
                     <?php $__currentLoopData = $posts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $post): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <div class="post">
+                        <div class="post">
                         <img class="post__image"  src="<?php echo e($post->image); ?>" alt="">
                         <div class="post__title">
                             <a href="/single/<?php echo e($post->getId()); ?>">
@@ -35,7 +36,7 @@
                             </div>
                             <div class="post__component"><span>Категории:</span>
                                 <?php if(is_array($post->categories())): ?>
-                                <?php $__currentLoopData = $post->categories(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>:
+                                <?php $__currentLoopData = $post->categories(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
 
                                 <a href="/category/<?php echo e($category->name); ?>" class="component_common_category">

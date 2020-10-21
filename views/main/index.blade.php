@@ -1,5 +1,6 @@
 @extends('main.layouts')
 @section('content')
+
 <div class="container">
         <header class="header">
             <div class="header__inscription">{{ isset($arg['blogName']) ? $arg['blogName'] : 'Blogich'}}</div>
@@ -15,7 +16,7 @@
             </nav>
                 <main class="main_content">
                     @foreach ($posts as $post)
-                    <div class="post">
+                        <div class="post">
                         <img class="post__image"  src="{{$post->image}}" alt="">
                         <div class="post__title">
                             <a href="/single/{{$post->getId()}}">
@@ -33,8 +34,7 @@
                             </div>
                             <div class="post__component"><span>Категории:</span>
                                 @if(is_array($post->categories()))
-                                @foreach ($post->categories() as $category):
-
+                                @foreach ($post->categories() as $category)
 
                                 <a href="/category/{{$category->name}}" class="component_common_category">
                                     {{$category->name}}

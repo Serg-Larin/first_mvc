@@ -71,33 +71,23 @@ abstract class ActiveRecordEntity
            */
           /*Класс из которого был создан метод*/
           $currentClass = strtolower(substr(strrchr(get_class($this), "\\"), 1));
-
+          $currentClassColumn = $currentClass.'_id';
           /*Класс объект которого будет возвращен*/
-          $returnDataClass = strtolower(substr(strrchr(get_class($class), "\\"), 1));
+          $returnDataClass = strtolower(substr(strrchr($class, "\\"), 1));
 
-          echo $currentClass.'<br>';
-          echo $returnDataClass.'<br>';
+          /*Таблица связей*/
+          $db = Db::getInstance();
+          $joinTable = $class::getTableName();
 
+          $firstJoinColumn = $firstJoinColumn?$firstJoinColumn:'id';
 
-//        $relationClass = substr($class, strrpos($class, '\\') + 1);
-//        $currentClass = substr(get_class($this), strrpos(get_class($this), '\\') + 1);
-//        $db = Db::getInstance();
-        $joinTable = $class::getTableName();
+          $secondJoinColumn = $secondJoinColumn?$secondJoinColumn:$returnDataClass.'_id';
 
-//        if($table==''){
-//            if(substr($class,0,1)<substr(get_class($this),0,1)){
-//                $table=strtolower($relationClass.'_'.$currentClass);
-//            } else  $table = strtolower($currentClass.'_'.$relationClass);
-//        }
-
-//        $firstJoinColumn = $firstJoinColumn?$firstJoinColumn:'id';
-//        $secondJoinColumn = $secondJoinColumn?$secondJoinColumn:strtolower($relationClass).'_id';
-
-        $entities = $db->query(
-            "SELECT * FROM  $joinTable as j JOIN $table as i ON j.$firstJoinColumn = i.$secondJoinColumn WHERE i.$secondJoinColumn=:id;",
+          $entities = $db->query(
+            "SELECT * FROM  $joinTable as j JOIN $table as i ON j.$firstJoinColumn = i.$secondJoinColumn WHERE i.$currentClassColumn=:id;",
             [':id'=>$this->id],
             $class
-        );
+          );
         return $entities ? $entities : null;
 
     }

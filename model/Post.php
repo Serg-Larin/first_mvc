@@ -22,7 +22,7 @@ class Post extends Model
      * @return Category|array
      */
     public function categories(){
-        return $this->belongsToMany(Category::class,'post_category','id','post_id');
+        return $this->belongsToMany(Category::class,'post_category');
     }
     /**
      * @return User|array
@@ -34,7 +34,7 @@ class Post extends Model
      * @return Tag|array
      */
     public function tags(){
-        return $this->belongsToMany(Tag::class);
+        return $this->belongsToMany(Tag::class,'post_tag');
     }
     /**
      * @return Comment|array

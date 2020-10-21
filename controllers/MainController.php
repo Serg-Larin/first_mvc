@@ -14,7 +14,7 @@ class MainController extends controller {
                 $posts = Post::findAll();
                 $categories = Category::findAll();
                 $tags = Tag::findAll();
-                return view('main.index.blade',compact(
+                return view('main.index',compact(
                     'posts',
                               'categories',
                                     'tags'
