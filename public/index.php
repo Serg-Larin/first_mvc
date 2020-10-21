@@ -25,6 +25,23 @@ include_once 'components/Config.php';
 ////include_once 'autoload.php';
 session_start();
 //
+$config = [
+    'driver'    => 'mysql', // Db driver
+    'host'      => DB_HOST,
+    'database'  => DB_NAME,
+    'username'  => DB_USER,
+    'password'  => CrossPlatformSettings::getSettingsByKey('password')
+];
+
+$connection = new \Pixie\Connection('mysql', $config);
+try {
+    $DB = new \Pixie\QueryBuilder\QueryBuilderHandler($connection);
+    if(!$DB){
+        throw new \mysql_xdevapi\Exception(getError(DATABASE_CONNECT_ERROR));
+    }
+} catch (Exception $e){
+    echo $e->getMessage();
+}
 $obj = new Router();
 //
 $obj->route();

@@ -1,7 +1,6 @@
 <?php
 namespace controllers;
 
-//use app\controllers\heritable\controller;
 use controllers\heritable\controller;
 use model\Post;
 use model\Category;
@@ -23,10 +22,8 @@ class MainController extends controller {
          public function singlePost($id){
             $post = Post::getById($id);
             $categories = $post->categories();
-            print_r($categories);
-             $tags = $post->tags();
-             print_r($tags);
-             return view('main.singlePost',compact('post','categories','tags'));
+            $tags = $post->tags();
+            return view('main.singlePost',compact('post','categories','tags'));
          }
 
         public function footer(){

@@ -38,7 +38,6 @@
                                 <?php if(is_array($post->categories())): ?>
                                 <?php $__currentLoopData = $post->categories(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
-
                                 <a href="/category/<?php echo e($category->name); ?>" class="component_common_category">
                                     <?php echo e($category->name); ?>
 
