@@ -104,6 +104,18 @@ abstract class ActiveRecordEntity
         return $entities ? $entities[0] : null;
     }
 
+    public static function getByColumn(string $column, $value): ?self
+    {
+        $db = Db::getInstance();
+
+        $entities = $db->query(
+            'SELECT * FROM `' . static::getTableName() . '` WHERE '.$column.'=:value;',
+            [':value' => $value],
+            static::class
+        );
+        return $entities ? $entities[0] : null;
+    }
+
     public function delete(int $id) : void
     {
         $db = Db::getInstance();

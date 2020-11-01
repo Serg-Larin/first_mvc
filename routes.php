@@ -1,4 +1,7 @@
 <?php
+
+use controllers\MainController;
+
 return [
 
     '(account/registration)' => [
@@ -17,12 +20,8 @@ return [
         'controller' => controllers\MainController::class,
         'action'     => 'index'
     ],
-    '(/footer)' =>[
-        'controller' => 'main',
-        'action'     => 'footer'
-    ],
     '(category)/(\w+)' =>[
-        'controller' => 'main',
+        'controller' => controllers\MainController::class,
         'action'     => 'category'
     ],
     '(tag)/(\w+)' =>[

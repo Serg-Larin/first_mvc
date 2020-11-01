@@ -1,5 +1,5 @@
-@extends('main.layouts')
-@section('content')
+
+<?php $__env->startSection('content'); ?>
     <div class="single_post_container">
 <!--        <header class="header"><span class="header__inscription">HEADER</span></header>-->
         <nav class="space_link_back">
@@ -8,44 +8,48 @@
 <div class="main_content_single_post" style="flex-wrap: wrap" >
     <div class="single_post_all_content">
     <div class="single_post_image" style="width: 100%;">
-        <img src="{{$post->image}}" alt="" width="600px" height="400px">
+        <img src="<?php echo e($post->image); ?>" alt="" width="600px" height="400px">
     </div>
     <div class="single_post_title" >
-        <span>{{$post->title}}</span>
+        <span><?php echo e($post->title); ?></span>
     </div>
     <div class="single_post_author">
         <span>author: </span>
         <span class="single_post_author_name">
-            {{$post->user()->login}}
+            <?php echo e($post->user()->login); ?>
+
         </span>
     </div>
     <div class="single_post_content">
         <span>
-            {{$post->content}}
+            <?php echo e($post->content); ?>
+
         </span>
     </div>
     <div class="single_post_component"><span>Категории:</span>
 
-        @if(isset($categories) && !empty($categories))
-        @foreach ($categories as $category)
-        <a href="/category/{{$category->name}}" class="component_common_category">
-            {{$category->name}}
+        <?php if(isset($categories) && !empty($categories)): ?>
+        <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <a href="/category/<?php echo e($category->name); ?>" class="component_common_category">
+            <?php echo e($category->name); ?>
+
         </a>
-        @endforeach
-        @endif
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        <?php endif; ?>
 
 
     </div>
     <div class="single_post_component">
         <span>Тэги:</span>
 
-        @if(isset($tags) && !empty($tags))
-            @foreach ($tags as $tag)
-                <a href="/tag/{{$tag->name}}" class="component_common_tag">
-                    {{$tag->name}}
+        <?php if(isset($tags) && !empty($tags)): ?>
+            <?php $__currentLoopData = $tags; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tag): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <a href="/tag/<?php echo e($tag->name); ?>" class="component_common_tag">
+                    <?php echo e($tag->name); ?>
+
                 </a>
-            @endforeach
-        @endif
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        <?php endif; ?>
 
     </div>
     <div class="single_post_date">
@@ -72,21 +76,22 @@
         </div>
 
 
-        @if(!empty($post->comments()))
-        @foreach ($post->comments() as $comment)
+        <?php if(!empty($post->comments())): ?>
+        <?php $__currentLoopData = $post->comments(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $comment): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
         <div class="comment" style="display:none;">
             <div class="comment_img_space">
                 <div>
                     <img src="/uploads/user_images/187e1529063.jpg" id="img" alt="" class="comment_user_img">
                 </div>
                 <div class="comment_user_name">
-                    {{$comment->email}}
+                    <?php echo e($comment->email); ?>
+
                 </div>
             </div>
             <div class="comment_content">
-                <span>{{$comment->content}}</span>
+                <span><?php echo e($comment->content); ?></span>
             </div>
-            <div class="date">{{$comment->date}}</div>
+            <div class="date"><?php echo e($comment->date); ?></div>
             <div class="open_sub_comment">
                 <span class="open_sub_comment_button" ><i id="drop_down" class="fas fa-chevron-down fa-2x"></i></span>
             </div>
@@ -104,8 +109,8 @@
                     </div>
                 </form>
             </div>
-           @if(!empty($comment->sub_comment()))
-           @foreach ($comment->sub_comment() as $subcomment)
+           <?php if(!empty($comment->sub_comment())): ?>
+           <?php $__currentLoopData = $comment->sub_comment(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $subcomment): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
 
             <div class="sub_comment">
@@ -114,20 +119,23 @@
                         <img src="/uploads/user_images/187e1529063.jpg" id="img" alt="" class="sub_comment_user_img">
                     </div>
                     <div class="comment_user_name">
-                        {{$subcomment->email}}
+                        <?php echo e($subcomment->email); ?>
+
                     </div>
                 </div>
                 <div class="comment_content">
-                    <span>{{$subcomment->content}}</span>
+                    <span><?php echo e($subcomment->content); ?></span>
                 </div>
-                <div class="date">{{$subcomment->date}}</div>
+                <div class="date"><?php echo e($subcomment->date); ?></div>
             </div>
-            @endforeach
-            @endif
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            <?php endif; ?>
         </div>
-              @endforeach
-              @endif
+              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+              <?php endif; ?>
     </div>
     </div>
     <script src="/js/singlePost.js"></script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('main.layouts', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH W:\domains\first_mvc\views/main/singlePost.blade.php ENDPATH**/ ?>

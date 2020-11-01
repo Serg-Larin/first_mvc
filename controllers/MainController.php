@@ -5,6 +5,7 @@ use controllers\heritable\controller;
 use model\Post;
 use model\Category;
 use model\Tag;
+use components\DB;
 
 class MainController extends controller {
 
@@ -26,14 +27,13 @@ class MainController extends controller {
             return view('main.singlePost',compact('post','categories','tags'));
          }
 
-        public function footer(){
-
-            echo json_encode($this->model->footer());
-        }
         public function category($category){
-            $params = $this->model->getAllPostsByCategoryName($category);
-            $params['blogName']=$category;
-            $this->view->render($params,'main/select');
+
+            $category = Category::getByColumn('name',$category);
+            if ($category){
+                $posts = $category->posts();
+            }
+            return view('main.select',compact('posts'));
         }
         public function tag($tag){
             $params = $this->model->getAllPostsByTagName($tag);
