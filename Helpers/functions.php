@@ -21,5 +21,15 @@ function view($path,$arguments = [])
 
         $blade = new Blade('views', 'cache');
         echo $blade->make($path,$arguments)->render();
-    }
+}
 
+
+function out($arr){
+    echo '<pre>';
+    print_r($arr);
+    echo '</pre>';
+}
+
+function method(){
+    return $_SERVER['METHOD'];
+}

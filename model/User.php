@@ -15,5 +15,7 @@ use model\extend\Model;
 
 class User extends Model {
 
-    public static $tableName = 'users';
+    public static function tableName(){
+        return 'users';
+    }
 }

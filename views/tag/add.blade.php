@@ -1,5 +1,5 @@
-<?php require_once 'views/lib/layoutsForAdmin/header.php'; ?>
-
+@extends('adminLayouts.layout')
+@section('content')
 
 <h1><b>New tag</b></h1>
 <hr>
@@ -12,4 +12,4 @@
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
-<?php require_once 'views/lib/layoutsForAdmin/footer.php'; ?>
+@endsection

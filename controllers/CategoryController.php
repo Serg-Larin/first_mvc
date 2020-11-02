@@ -1,40 +1,55 @@
 <?php
 namespace controllers;
 
-require_once 'heritable/resource.php';
-require_once 'heritable/controllerAdmin.php';
+use controllers\heritable\controller;
+use controllers\heritable\resource;
+use Helpers\Helper;
+use model\Category;
+use Respect\Validation\Validator;
 
-use controllerAdmin;
-use heritable\resource;
-
-
-class CategoryController extends controllerAdmin implements resource {
+class CategoryController extends controller implements resource {
 
     public function display(){
-        $params=$this->model->selectAllRecords();
-        $this->view->render($params);
+       $categories =  Category::findAll();
+       return view('category.display',compact('categories'));
     }
 
     public function edit($id){
-        $params = $this->model->selectRecordById($id);
-        if(!empty($_POST)) {
-            $this->model->update($_POST,'category');
-            \Helper::redirect('/admin/categories');
+        $category = Category::getById($id);
+        if($_POST) {
+            if ($category) {
+                $validate = Validator::max(20)->stringType()->validate($_POST['category']);
+                $categoryName = $_POST['category'];
+                $category->name = $categoryName;
+                $category->save();
+                Helper::redirect('/admin/categories');
+            }
         }
-        $this->view->render($params);
+        view('category.edit', compact('category'));
 
     }
 
     public function add(){
-        if(!empty($_POST)) {
-            $this->model->insert($_POST,'category');
-            \Helper::redirect('/admin/categories');
+        if($_POST)
+        {
+            $category = $_POST['category'];
+            $validate = Validator::max(20)->stringType()->validate($category);
+            if($validate){
+                Category::createNew($category);
+                Helper::redirect('/admin/categories');
+            }
         }
-        $this->view->render();
+        else {
+            return view('category.add');
+        }
     }
     public function delete($id){
-        $this->model->deleteRecord($id);
-        \Helper::redirect($this->url);
+        $category = Category::getById($id);
+        if($category){
+            $category->delete();
+            Helper::redirect('/admin/categories');
+        }
+        Helper::redirect('/admin/categories');
     }
     public function getCategoryStatus($id){
         echo json_encode($this->model->belongToPost($id));

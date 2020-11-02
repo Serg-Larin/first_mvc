@@ -1,5 +1,5 @@
-<?php require_once 'views/lib/layoutsForAdmin/header.php'; ?>
-
+@extends('adminLayouts.layout')
+@section('content')
     <h1><b>Tags</b></h1>
 
     <hr>
@@ -16,17 +16,16 @@
             </tr>
             </thead>
             <tbody>
-            <div >
-                <?php foreach ($arg as $tag) : ?>
+            <div>
+                @foreach ($tags as $tag)
                 <tr>
-                    <th><?=$tag['id'];?></th>
-                    <td><?=$tag['tag']?></td>
-                    <td><div ><a href="/admin/tag/edit/<?=$tag['id'];?>"><i class="fa fa-edit fa-2x edit" title="edit"></a></i></div></td>
-                    <td><div ><a href="/admin/tag/delete/<?=$tag['id'];?>"><i class="fas fa-trash fa-2x remove" title="remove"></i></a></div></td>
+                    <th>{{$tag->getId()}}</th>
+                    <td>{{$tag->name}}</td>
+                    <td><div ><a href="/admin/tag/edit/{{$tag->getId()}}"><i class="fa fa-edit fa-2x edit" title="edit"></i></a></div></td>
+                    <td><div ><a href="/admin/tag/delete/{{$tag->getId()}}"><i class="fas fa-trash fa-2x remove" title="remove"></i></a></div></td>
                 </tr>
-                <?php endforeach; ?>
+                @endforeach
             </div>
             </tbody>
         </table></div>
-
-<?php require_once 'views/lib/layoutsForAdmin/footer.php'; ?>
+@endsection

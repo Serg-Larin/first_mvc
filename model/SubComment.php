@@ -15,8 +15,9 @@ use model\extend\Model;
 
 class SubComment extends Model
 {
-    public static $tableName = 'comment_sub';
-
+    public static function tableName(){
+        return 'comment_sub';
+    }
 
 
 }

@@ -1,11 +1,7 @@
 <?php
+namespace Helpers;
 
 class Helper{
-    static public function out($arr){
-        echo '<pre>';
-        print_r($arr);
-        echo '</pre>';
-    }
     static public function hash($field){
         return md5($field);
     }

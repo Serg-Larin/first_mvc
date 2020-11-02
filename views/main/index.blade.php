@@ -3,7 +3,7 @@
 
 <div class="container">
         <header class="header">
-            <div class="header__inscription">{{ isset($arg['blogName']) ? $arg['blogName'] : 'Blogich'}}</div>
+            <div class="header__inscription">Blogich</div>
         </header>
             <nav class="block_menu">
                 <ul class="menu">
@@ -60,7 +60,7 @@
                     </div>
                     @endforeach
                 </main>
-            <aside class="right_sidebar">
+            <aside class="right_sidebar" style="width: 300px; overflow: hidden;">
                 <div class="sections">
 <!--                <div class="users">-->
 <!--                    <div class="side_bar_block_name">-->
@@ -72,6 +72,7 @@
                         Categories:
                     </div>
                     <div class="side_bar_block_body">
+
                         @foreach( $categories as  $category)
                             <a href="/category/{{$category->name}}" class="component_common_category">{{$category->name}}</a>
                         @endforeach

@@ -6,6 +6,9 @@ namespace components;
 
 class DB {
 
+    /**
+     * @return \Pixie\QueryBuilder\QueryBuilderHandler;
+     */
     public static function builder(){
     $config = [
     	'driver'    => 'mysql', // Db driver

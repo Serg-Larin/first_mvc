@@ -10,23 +10,28 @@ return [
     ],
     '' =>[
         'controller' => controllers\MainController::class,
-        'action'     => 'index'
+        'action'     => 'index',
+        'method'     => 'get'
     ],
     '(single)/(\d+)' =>[
         'controller' => controllers\MainController::class,
-        'action'     => 'singlePost'
+        'action'     => 'singlePost',
+        'method'     => 'get'
     ],
     '/qwe' =>[
         'controller' => controllers\MainController::class,
-        'action'     => 'index'
+        'action'     => 'index',
+        'method'     => 'get'
     ],
     '(category)/(\w+)' =>[
         'controller' => controllers\MainController::class,
-        'action'     => 'category'
+        'action'     => 'category',
+        'method'     => 'get'
     ],
     '(tag)/(\w+)' =>[
         'controller' => controllers\MainController::class,
-        'action'     => 'tag'
+        'action'     => 'tag',
+        'method'     => 'get'
     ],
 
 
@@ -34,24 +39,22 @@ return [
             //admin/categories
 
     '(admin/categories)' =>[
-        'controller' => 'category',
+        'controller' => controllers\CategoryController::class,
         'action'    => 'display',
-        'middleware' => 'auth'
+//        'middleware' => 'auth'
     ],
     '(admin/category/add)' =>[
-        'controller' => 'category',
+        'controller' => controllers\CategoryController::class,
         'action'    => 'add',
-        'middleware' => 'auth'
+//        'middleware' => 'auth'
     ],
     '(admin/category/edit)/(\d+)' =>[
-        'controller' => 'category',
+        'controller' => controllers\CategoryController::class,
         'action'    => 'edit',
-        'middleware' => 'auth'
     ],
     '(admin/category/delete)/(\d+)' =>[
-        'controller' => 'category',
+        'controller' => controllers\CategoryController::class,
         'action'    => 'delete',
-        'middleware' => 'auth'
 
     ],'(admin/category/ajax)/(\d+)' =>[
         'controller' => 'category',
@@ -96,24 +99,24 @@ return [
            //admin/tags
 
     '(admin/tags)' =>[
-        'controller' => 'tag',
-        'action'    => 'display',
-        'middleware' => 'auth'
+        'controller' => controllers\TagController::class,
+        'action'     => 'display',
+        'method'     => 'get'
     ],
     '(admin/tag/add)' =>[
-        'controller' => 'tag',
+        'controller' => controllers\TagController::class,
         'action'    => 'add',
-        'middleware' => 'auth'
+        'method'     => 'get'
     ],
     '(admin/tag/edit)/(\d+)' =>[
-        'controller' => 'tag',
+        'controller' => controllers\TagController::class,
         'action'    => 'edit',
-        'middleware' => 'auth'
+        'method'     => 'get'
     ],
     '(admin/tag/delete)/(\d+)' =>[
-        'controller' => 'tag',
+        'controller' => controllers\TagController::class,
         'action'    => 'delete',
-        'middleware' => 'auth'
+        'method'     => 'get'
     ],
     '(admin/tag/ajax)/(\d+)' =>[
         'controller' => 'tag',

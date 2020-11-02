@@ -16,7 +16,9 @@ use model\extend\Model;
 
 class Post extends Model
 {
-    public static $tableName = 'posts';
+    public static function tableName(){
+        return 'posts';
+    }
 
     /**
      * @return Category|array

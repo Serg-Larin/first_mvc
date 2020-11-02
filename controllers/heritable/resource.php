@@ -1,5 +1,5 @@
 <?php
-namespace heritable;
+namespace controllers\heritable;
 
 interface resource {
 

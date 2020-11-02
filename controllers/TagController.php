@@ -1,42 +1,57 @@
 <?php
 namespace controllers;
 
-require_once 'heritable/resource.php';
-require_once 'heritable/controllerAdmin.php';
+use controllers\heritable\controller;
+use controllers\heritable\resource;
+use Helpers\Helper;
+use model\Tag;
+use Respect\Validation\Validator;
 
-use controllerAdmin;
-use heritable\resource;
 
+class TagController extends controller implements resource
+{
 
-class TagController extends controllerAdmin implements resource {
     public function display(){
-        $params=$this->model->selectAllRecords();
-        $this->view->render($params);
+        $tags =  Tag::findAll();
+        return view('tag.display',compact('tags'));
     }
 
     public function edit($id){
-        $params = $this->model->selectRecordById($id);
-        if(!empty($_POST)) {
-            $this->model->update($_POST,'tag');
-            \Helper::redirect('/admin/tags');
+        $tag = Tag::getById($id);
+        if($_POST) {
+            if ($tag) {
+                $validate = Validator::max(20)->stringType()->validate($_POST['tag']);
+                $tagName = $_POST['tag'];
+                $tag->name = $tagName;
+                $tag->save();
+                Helper::redirect('/admin/tags');
+            }
         }
-        $this->view->render($params);
+        view('tag.edit', compact('tag'));
+
     }
 
     public function add(){
-        if(!empty($_POST)) {
-            $this->model->insert($_POST,'tag');
-            \Helper::redirect('/admin/tags');
+        if($_POST)
+        {
+            $tag = $_POST['tag'];
+            $validate = Validator::max(20)->stringType()->validate($tag);
+            if($validate){
+                Tag::createNew($tag);
+                Helper::redirect('/admin/tags');
+            }
         }
-        $this->view->render();
+        else {
+            return view('tag.add');
+        }
     }
     public function delete($id){
-        $this->model->deleteRecord($id);
-        \Helper::redirect('/admin/tags');
-    }
-
-    public function getTagsStatus($id){
-       echo json_encode($this->model->belongToPost($id));
+        $tag = Tag::getById($id);
+        if($tag){
+            $tag->delete();
+            Helper::redirect('/admin/tags');
+        }
+        Helper::redirect('/admin/tags');
     }
 
 }

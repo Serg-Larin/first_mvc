@@ -5,7 +5,6 @@ abstract class ActiveRecordEntity
 {
     
     protected $id;
-    public static $tableName;
 
     public static function getClass($class){
         return substr($class, strrpos($class, '\\') + 1);
@@ -19,7 +18,7 @@ abstract class ActiveRecordEntity
         $db = Db::getInstance();
         $columnIn = self::underscoreToCamelCase($thisColumn?$thisColumn:strtolower(self::getClass($class)).'_id');
         $columnOut = $thatColumn?$thatColumn:'id';
-        $table = $table?$table:$class::getTableName();
+        $table = $table?$table:$class::tableName();
         $entities = $db->query(
             "SELECT * FROM " . $table . " WHERE $columnOut=:$columnOut;",
             [':'.$columnOut => $this->$columnIn],
@@ -29,7 +28,7 @@ abstract class ActiveRecordEntity
     }
     protected function hasOne($class,$thatColumn='',$thisColumn='',$table=''){
         $db = Db::getInstance();
-        $table = $table?$table:$class::getTableName();
+        $table = $table?$table:$class::tableName();
         $thisColumn = $thisColumn?$this->underscoreToCamelCase($thisColumn):'id';
         $thatColumn = $thatColumn?$thatColumn:strtolower(static::class).'_id';
         $entities = $db->query(
@@ -42,7 +41,7 @@ abstract class ActiveRecordEntity
     }
     protected function hasMany($class,$thatColumn='',$thisColumn='',$table=''){
         $db = Db::getInstance();
-        $table = $table?$table:$class::getTableName();
+        $table = $table?$table:$class::tableName();
         $thisColumn = $thisColumn?$this->underscoreToCamelCase($thisColumn):'id';
         $thatColumn = $thatColumn?$thatColumn:strtolower(static::class).'_id';
         $entities = $db->query(
@@ -77,7 +76,7 @@ abstract class ActiveRecordEntity
 
           /*Таблица связей*/
           $db = Db::getInstance();
-          $joinTable = $class::getTableName();
+          $joinTable = $class::tableName();
 
           $firstJoinColumn = $firstJoinColumn?$firstJoinColumn:'id';
 
@@ -97,7 +96,7 @@ abstract class ActiveRecordEntity
         $db = Db::getInstance();
 
         $entities = $db->query(
-            'SELECT * FROM `' . static::getTableName() . '` WHERE id=:id;',
+            'SELECT * FROM `' . static::tableName() . '` WHERE id=:id;',
             [':id' => $id],
             static::class
         );
@@ -109,19 +108,19 @@ abstract class ActiveRecordEntity
         $db = Db::getInstance();
 
         $entities = $db->query(
-            'SELECT * FROM `' . static::getTableName() . '` WHERE '.$column.'=:value;',
+            'SELECT * FROM `' . static::tableName() . '` WHERE '.$column.'=:value;',
             [':value' => $value],
             static::class
         );
         return $entities ? $entities[0] : null;
     }
 
-    public function delete(int $id) : void
+    public function delete() : void
     {
         $db = Db::getInstance();
         $db->query(
-            'DELETE FROM `' . static::getTableName() . '` WHERE id=:id;',
-            [':id' => $id]
+            'DELETE FROM `' . static::tableName() . '` WHERE id=:id;',
+            [':id' => $this->id]
         );
     }
 
@@ -132,7 +131,7 @@ abstract class ActiveRecordEntity
     {
         $db = Db::getInstance();
         $entities = $db->query(
-            'SELECT * FROM `' . static::getTableName() . "` WHERE $columnName=:$columnName;",
+            'SELECT * FROM `' . static::tableName() . "` WHERE $columnName=:$columnName;",
             [":$columnName" => $value],
             static::class );
         return $entities ? $entities[0] : null;
@@ -147,7 +146,6 @@ abstract class ActiveRecordEntity
     {
         $reflector = new \ReflectionObject($this);
         $properties = $reflector->getProperties();
-
         $mappedProperties = [];
         foreach ($properties as $property) {
             $propertyName = $property->getName();
@@ -158,12 +156,24 @@ abstract class ActiveRecordEntity
         return $mappedProperties;
     }
 
+    /**
+     * save - сохраняет текущий объект в базу данных
+     *
+     * @return bool
+     */
+
     public function save(){
         $mappedProperties = $this->mapPropertiesToDbFormat();
-            stdOut($this);
+
         if($this->id!==null){
-            $this->update($mappedProperties);
-        } else $this->insert($mappedProperties);
+
+//            dd($this);
+            return  $this->update($mappedProperties);
+
+        }
+        else{
+            return $this->insert($mappedProperties);
+        }
 
     }
 
@@ -177,12 +187,14 @@ abstract class ActiveRecordEntity
             $params2values[$param] = $value; 
             $index++;
         }
-        $sql = 'UPDATE ' . static::getTableName() . ' SET ' . implode(', ', $columns2params) . ' WHERE id = ' . $this->id;
+        $sql = 'UPDATE ' . static::tableName() . ' SET ' . implode(', ', $columns2params) . ' WHERE id = ' . $this->id;
+
         $db = Db::getInstance();
         $db->query($sql, $params2values, static::class);
+        return true;
     }
 
-    private function insert(array $mappedProperties): void
+    private function insert(array $mappedProperties)
     {
         $filteredProperties = array_filter($mappedProperties);
 
@@ -199,11 +211,12 @@ abstract class ActiveRecordEntity
         $columnsViaSemicolon = implode(', ', $columns);
         $paramsNamesViaSemicolon = implode(', ', $paramsNames);
 
-        $sql = 'INSERT INTO ' . static::getTableName() . ' (' . $columnsViaSemicolon . ') VALUES (' . $paramsNamesViaSemicolon . ');';
+        $sql = 'INSERT INTO ' . static::tableName() . ' (' . $columnsViaSemicolon . ') VALUES (' . $paramsNamesViaSemicolon . ');';
 
         $db = Db::getInstance();
         $db->query($sql, $params2values, static::class);
         $this->id = $db->getLastInsertId();
+        return true;
     }
 
 
@@ -222,27 +235,12 @@ abstract class ActiveRecordEntity
    
     public static function findAll()
     {
-//        return ['qwe'=>1];
         $db = Db::getInstance();
-//        print_r(self::getTableName());
-        return $db->query('SELECT * FROM `' . static::getTableName() . '`;', [], static::class);
+//        dd(static::tableName());
+        return $db->query('SELECT * FROM `' . static::tableName() . '`;', [], static::class);
     }
 
-    public static function qwe(){
-        return self::getTableName();
-    }
-    protected static function getTableName()
-    {
-        $tableName = strtolower(static::class);
-        if(static::$tableName!='') return static::$tableName;
-        if(substr($tableName, -1)!='s')
-        {
-            if(substr($tableName, -1)=='y')
-            {
-                return substr($tableName,0,-1).'ies';
-            }
-            return $tableName.'s';
-        }
-    }
+    protected static function tableName(){}
+
 
 }

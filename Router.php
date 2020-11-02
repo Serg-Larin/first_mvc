@@ -7,8 +7,11 @@ class Router
 
     private $routes;
 
+    private $method;
+
     public function __construct()
     {
+        $this->method = $_SERVER['REQUEST_METHOD'];
         $this->uri = explode('/', $_SERVER['REQUEST_URI']);
         $arr = require_once 'routes.php';
         foreach ($arr as $route => $val){
@@ -43,6 +46,7 @@ class Router
     public function route()
     {
         $request = $this->maches();
+
         /*Достаем контроллер*/
         if(isset($request['controller'])&&!empty($request['controller'])) {
             $controller = $request['controller'];
@@ -52,6 +56,11 @@ class Router
         if(isset($request['action'])&&!empty($request['action'])) {
             $action = $request['action'];
             unset($request['action']);
+        }
+        /*Достаем Http метод*/
+        if(isset($request['method'])&&!empty($request['method'])) {
+            $method = $request['method'];
+            unset($request['method']);
         }
         /*Достаем если емеется middleware*/
         if(isset($request['middleware'])){
