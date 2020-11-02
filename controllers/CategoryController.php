@@ -19,9 +19,11 @@ class CategoryController extends controller implements resource {
         if($_POST) {
             if ($category) {
                 $validate = Validator::max(20)->stringType()->validate($_POST['category']);
-                $categoryName = $_POST['category'];
-                $category->name = $categoryName;
-                $category->save();
+                if($validate) {
+                    $categoryName = $_POST['category'];
+                    $category->name = $categoryName;
+                    $category->save();
+                }
                 Helper::redirect('/admin/categories');
             }
         }

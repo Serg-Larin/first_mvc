@@ -21,9 +21,11 @@ class TagController extends controller implements resource
         if($_POST) {
             if ($tag) {
                 $validate = Validator::max(20)->stringType()->validate($_POST['tag']);
-                $tagName = $_POST['tag'];
-                $tag->name = $tagName;
-                $tag->save();
+                if($validate) {
+                    $tagName = $_POST['tag'];
+                    $tag->name = $tagName;
+                    $tag->save();
+                }
                 Helper::redirect('/admin/tags');
             }
         }
