@@ -1,5 +1,5 @@
-<?php require_once 'views/lib/layoutsForAdmin/header.php'; ?>
-
+@extends('adminLayouts.layout')
+@section('content')
     <h1><b>Posts</b></h1>
 
     <hr>
@@ -19,24 +19,19 @@
             </thead>
             <tbody>
             <div class="admin_pagination">
-                <?php foreach ($arg['pages'] as $page):?>
-                    <div>
-                        <a href="/admin/posts/<?=$page?>"><?=$page?></a>
-                    </div>
-                <?php endforeach;?>
             </div>
             <div >
-                <?php foreach ($arg['posts'] as $posts): ?>
+                @foreach ($posts as $post)
                 <tr>
-                <th><?=$posts['id']?></th>
-                <td><?=$posts['login']?></td>
-                <td><?=$posts['title']?></td>
-                <td style="max-height: 10px"><div class="box" style="max-height: 40px; "><p style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?=$posts['content']?>></p></div></td>
+                <th>{{$post->getId()}}</th>
+                <td>{{$post->user()->login}}</td>
+                <td>{{$post->title}}</td>
+                <td style="max-height: 10px"><div class="box" style="max-height: 40px; "><p style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{$post->content}}</p></div></td>
 
-                <td><div ><a href="/admin/posts/edit/<?=$posts['id'];?>"><i class="fa fa-edit fa-2x edit" title="edit"></a></i></div></td>
-                <td><div ><a href="/admin/posts/delete/<?=$posts['id'];?>"><i class="fas fa-trash fa-2x remove" title="remove"></a></i></div></td>
+                <td><div ><a href="/admin/posts/edit/{{$post->getId()}}"><i class="fa fa-edit fa-2x edit" title="edit"></i></a></div></td>
+                <td><div ><a href="/admin/posts/delete/{{$post->getId()}}"><i class="fas fa-trash fa-2x remove" title="remove"></i></a></div></td>
                 </tr>
-                <?php endforeach;?>
+                @endforeach
 
             </div>
             </tbody>
@@ -49,4 +44,4 @@
             <?php endforeach;?>
         </div>
     </div>
-<?php require_once 'views/lib/layoutsForAdmin/footer.php'; ?>
+@endsection

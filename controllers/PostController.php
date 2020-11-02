@@ -1,21 +1,21 @@
 <?php
 namespace controllers;
 
-require_once 'heritable/controllerAdmin.php';
+use controllers\heritable\controller;
+use controllers\heritable\resource;
+use Helpers\Helper;
+use model\Category;
+use model\Post;
+use model\Tag;
+use mysql_xdevapi\Exception;
+use Respect\Validation\Validator;
 
-require_once 'heritable/resource.php';
-require_once 'model/categoryModel.php';
-require_once 'model/tagModel.php';
 
-use controllerAdmin;
-use heritable\resource;
-
-class postController extends controllerAdmin implements resource{
+class PostController extends controller implements resource{
 
     public function display($page=0){
-        $params['posts']=$this->model->selectAllRecordsPagination($page);
-        $params['pages']=$this->model->pagination();
-        $this->view->render($params);
+        $posts = Post::findAll();
+        return view('post.display',compact('posts'));
     }
 
     public function edit($id){
@@ -33,22 +33,23 @@ class postController extends controllerAdmin implements resource{
         $this->view->render($params);
 
     }
-    public function test(){
-        $this->model->test();
-    }
-
     public function add(){
-        $tags = new \tagModel();
-        $categories = new \categoryModel();
-        $tagParams['tags'] = $tags->selectAllRecords();
-        $categoryParams['categories'] = $categories->selectAllRecords();
-        $params=array_merge($tagParams,$categoryParams);
-        if(!empty($_POST)) {
-            $this->model->insert($_POST,$_FILES);
+        $tags = Tag::findAll();
+        $categories = Category::findAll();
+        if($_POST){
+            $image = '';
+            $post = $_POST;
+            if($_FILES){
+                if($_FILES['image']['type'] !== 'image/jpeg' || $_FILES['image']['type'] !== 'image/jpg'){
+                    throw new Exception('Файл неподходящего типа. Рекомендуемые типы jpg, jpeg');
+                }
+            }
+           Post::createNew($post);
 
-            \Helper::redirect('/admin/posts');
+        } else{
+
+            return view('post.add',compact('tags','categories'));
         }
-        $this->view->render($params);
     }
     public function delete($id){
         $this->model->deleteRecord($id);

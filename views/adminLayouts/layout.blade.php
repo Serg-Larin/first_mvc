@@ -46,6 +46,6 @@
 <!--<script src="../chosen.proto.js" type="text/javascript"></script>-->
 <!--<script src="../docsupport/prism.js" type="text/javascript" charset="utf-8"></script>-->
 <!--<script src="../docsupport/init.proto.js" type="text/javascript" charset="utf-8"></script>-->
-<!--<script src="/public/js/BsMultiSelect.js"></script>-->
+<script src="/js/BsMultiSelect.js"></script>
 </body>
 </html>

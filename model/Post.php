@@ -44,6 +44,11 @@ class Post extends Model
     public function comments(){
         return $this->hasMany(Comment::class,'post_id','','post_comment');
     }
+
+    public function createNew($post){
+
+    }
+
 //
 //    public function selectAllRecordsPagination($page=0)
 //    {

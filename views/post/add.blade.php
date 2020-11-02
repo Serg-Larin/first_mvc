@@ -1,9 +1,6 @@
-<?php require_once 'views/lib/layoutsForAdmin/header.php'; ?>
-    <script>
-        $(function(){
-            $("select").bsMultiSelect();
-        });
-    </script>
+@extends('adminLayouts.layout')
+@section('content')
+
         <h1><b>New post</b></h1>
         <hr>
         <form action="" method="post" enctype="multipart/form-data">
@@ -12,17 +9,17 @@
                     <div class="form-group">
                     <label for="categories">Categories</label>
                     <select id="categories" name="categories[]"  class="form-control"  multiple="multiple" >
-                    <?php foreach ($arg['categories'] as $category):?>
-                        <option value="<?=$category['id']?>"><?=$category['category']?></option>
-                    <?php endforeach;?>
+                    @foreach ($categories as $category)
+                        <option value="{{$category->getId()}}">{{$category->name}}</option>
+                    @endforeach
                     </select>
                     </div>
                     <div class="form-group">
                     <label for="tags" >Tags</label>
                     <select id="tags"  name="tags[]" class="form-control"  multiple="multiple" >
-                        <?php foreach ($arg['tags'] as $tag):?>
-                            <option value="<?=$tag['id']?>"><?=$tag['tag']?></option>
-                        <?php endforeach;?>
+                        @foreach ($tags as $tag)
+                            <option value="{{$tag->getId()}}">{{$tag->name}}</option>
+                        @endforeach
                     </select>
                     </div>
                     <div class="form-group">
@@ -46,4 +43,10 @@
 
             </div>
         </form>
-<?php require_once 'views/lib/layoutsForAdmin/footer.php'; ?>
+        <script>
+            $(function(){
+                $("#tags").bsMultiSelect();
+                $("#categories").bsMultiSelect();
+            });
+        </script>
+@endsection

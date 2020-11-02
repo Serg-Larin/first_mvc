@@ -71,9 +71,9 @@ return [
             //admin/posts
 
     '(admin/posts)' =>[
-        'controller' => 'post',
+        'controller' => controllers\PostController::class,
         'action'    => 'display',
-        'middleware' => 'auth'
+        'method'    => 'get'
     ],
     '(admin/posts)/(\d*)' =>[
         'controller' => 'post',
@@ -81,9 +81,9 @@ return [
         'middleware' => 'auth'
     ],
     '(admin/posts/add)' =>[
-        'controller' => 'post',
+        'controller' => controllers\PostController::class,
         'action'    => 'add',
-        'middleware' => 'auth'
+        'method'    => 'get'
     ],
     '(admin/posts/edit)/(\d+)' =>[
         'controller' => 'post',
