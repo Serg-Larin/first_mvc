@@ -15,6 +15,7 @@
                 </ul>
             </nav>
                 <main class="main_content">
+                    @isset($posts)
                     @foreach ($posts as $post)
                     <div class="post">
                         <label for="single_post_link"><img class="post__image"  src="{{$post->image}}" alt=""></label>
@@ -31,7 +32,7 @@
                                 </a>
                             </div>
                             <div class="post__component"><span>Категории:</span>
-                                @if(isset($post->categories()))
+                                @if(!empty($post->categories()))
                                 @foreach ($post->categories() as $category)
                                 <a href="/category/{{$category->name}}" class="component_common_category">
                                     {{$category->name}}
@@ -43,7 +44,7 @@
                             <div class="post__component">
                                 <span>Тэги:</span>
 
-                                @if(isset($post->tags()))
+                                @if(!empty($post->tags()))
                                 @foreach ($post->tags() as  $tag)
                                 <a href="/tag/{{$tag->name}}" class="component_common_tag">
                                     {{$tag->name}}
@@ -57,6 +58,7 @@
                             </div>
                     </div>
                     @endforeach
+                        @endisset
                 </main>
     <aside class="right_sidebar">
                 <div class="sections">
@@ -70,8 +72,8 @@
                         Categories:
                     </div>
                     <div class="side_bar_block_body">
-                        @foreach ( $post->categories() as  $category)
-                            <a href="/category/{{$category['category']}}" class="component_common_category">{{category->name}}</a>
+                        @foreach ( $categories as  $category)
+                            <a href="/category/{{$category->name}}" class="component_common_category">{{$category->name}}</a>
                         @endforeach
                     </div>
                 </div>
@@ -80,9 +82,9 @@
                         Tags:
                     </div>
                     <div class="side_bar_block_body">
-                       @foreach ($post->tags() as $tag)
+                       @foreach ($tags as $tag)
 
-                            <a href="/tag/{{$tag->tag}}" class="component_common_tag">{{$tag->name}}</a>
+                            <a href="/tag/{{$tag->name}}" class="component_common_tag">{{$tag->name}}</a>
 
                         @endforeach
                     </div>

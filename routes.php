@@ -25,7 +25,7 @@ return [
         'action'     => 'category'
     ],
     '(tag)/(\w+)' =>[
-        'controller' => 'main',
+        'controller' => controllers\MainController::class,
         'action'     => 'tag'
     ],
 

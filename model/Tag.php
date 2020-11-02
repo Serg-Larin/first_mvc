@@ -8,8 +8,12 @@ use model\extend\Model;
  * @property string name
  */
 
-class tag extends Model {
+class Tag extends Model {
 
     public static $tableName = 'tags';
+
+    public function posts(){
+        return $this->belongsToMany(Post::class,'post_tag');
+    }
 
 }

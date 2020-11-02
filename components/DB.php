@@ -12,7 +12,7 @@ class DB {
     	'host'      => DB_HOST,
     	'database'  => DB_NAME,
     	'username'  => DB_USER,
-    	'password'  => ''
+    	'password'  => 'Temp123#$'
 	];
 
 	$connection = new \Pixie\Connection('mysql', $config);
