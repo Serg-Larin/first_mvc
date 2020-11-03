@@ -30,6 +30,10 @@ function out($arr){
     echo '</pre>';
 }
 
-function method(){
-    return $_SERVER['METHOD'];
+function method($method = ''){
+    if($method === ''){
+        return $_SERVER['REQUEST_METHOD'];
+    }else{
+        return $method === $_SERVER['REQUEST_METHOD'];
+    }
 }

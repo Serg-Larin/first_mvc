@@ -4,8 +4,8 @@
   * Licensed under APACHE 2 (https://github.com/DashboardCode/BsMultiSelect/blob/master/LICENSE)
   */
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('jquery'), require('popper.js')) :
-    typeof define === 'function' && define.amd ? define(['jquery', 'popper.js'], factory) :
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('jquery'), require('./popper')) :
+    typeof define === 'function' && define.amd ? define(['jquery', './popper'], factory) :
     (global = global || self, factory(global.jQuery, global.Popper));
 }(this, (function ($, Popper) { 'use strict';
 

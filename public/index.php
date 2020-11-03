@@ -28,7 +28,18 @@ session_start();
 
 $obj = new Router();
 //
-$obj->route();
+
+try {
+    $obj->route();
+}
+catch (Exception $e){
+    echo json_encode(
+        [
+            'message' => $e->getMessage(),
+            'code'    => $e->getCode()
+        ]
+    );
+}
 //Helper::out($_SERVER['REQUEST_URI']);
 
 

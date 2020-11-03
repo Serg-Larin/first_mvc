@@ -3,7 +3,8 @@
     "require": {
         "jenssegers/blade": "^1.4",
         "usmanhalalit/pixie": "2.*@dev",
-        "respect/validation": "^2.0"
+        "respect/validation": "^2.0",
+        "ext-json": "*"
     },
     "require-dev": {
         "symfony/var-dumper": "^5.1"

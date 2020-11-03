@@ -28,4 +28,8 @@
             </div>
             </tbody>
         </table></div>
+    <script>
+        import {toastr} from 'toastr';
+        toastr.info('qwe');
+    </script>
 @endsection

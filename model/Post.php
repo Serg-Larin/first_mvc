@@ -46,6 +46,9 @@ class Post extends Model
     }
 
     public function createNew($post){
+        if(isset($post['category'])){
+
+        }
 
     }
 

@@ -37,11 +37,7 @@
             </tbody>
         </table>
         <div class="admin_pagination">
-            <?php foreach ($arg['pages'] as $page):?>
-                <div>
-                    <a href="/admin/posts/<?=$page?>"><?=$page?></a>
-                </div>
-            <?php endforeach;?>
+
         </div>
     </div>
 @endsection
