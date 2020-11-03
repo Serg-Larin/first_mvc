@@ -41,15 +41,15 @@ class PostController extends controller implements resource{
         if(method('POST')){
             $image = '';
             $post = $_POST;
-            print_r($_FILES);
             if($_FILES) {
                 if ($_FILES['image']) {
-                    if ($_FILES['image']['type'] !== 'image/jpeg' || $_FILES['image']['type'] !== 'image/jpg'|| $_FILES['image']['type'] !== 'image/png') {
+//                    throw new ValidationException($_FILES['image']['type']==='image/jpeg', ValidationException::TYPE_ERROR);
+                    if ($_FILES['image']['type'] !== 'image/jpeg' && $_FILES['image']['type'] !== 'image/jpg'&& $_FILES['image']['type'] !== 'image/png') {
                         throw new ValidationException('Файл неподходящего типа. Рекомендуемые типы jpg, jpeg', ValidationException::TYPE_ERROR);
                         return false;
                     } else {
                         throw new ValidationException('agasgfsefasefsef', ValidationException::TYPE_ERROR);
-                        print_r(move_uploaded_file ( $_FILES['image']['tmp_name'] , 'public/'.$_FILES['image']['tmp_name'] ));
+                        move_uploaded_file ( $_FILES['image']['tmp_name'] , '/public/'.$_FILES['image']['tmp_name'] );
                     }
                 } else {
                     throw new ValidationException('Принимаются только картинки', ValidationException::TYPE_ERROR);
