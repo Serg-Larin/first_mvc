@@ -17,7 +17,7 @@
                 <main class="main_content">
                     @foreach ($posts as $post)
                         <div class="post">
-                        <img class="post__image"  src="{{$post->image}}" alt="">
+                        <img class="post__image"  src="{{$post->getImage()}}" alt="">
                         <div class="post__title">
                             <a href="/single/{{$post->getId()}}">
                                 {{$post->title}}

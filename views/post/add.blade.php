@@ -47,23 +47,26 @@
             });
             $('#add_post_form').submit(function (e) {
                 let form = new FormData(this);
+                let button = $('#postAdd');
+                button.attr('disabled',true);
+                    $.ajax({
+                        url: '/admin/posts/add',
+                        type: "POST",
+                        data: form,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        dataType: 'json'
+                    }).done(function (res) {
+                        setTimeout(function (){
+                            callMessage(res) ? button.removeAttr('disabled') : setTimeout(function (){
+                                $(location).attr('href', '/admin/posts')
+                            },500);
+                        },1000);
 
-                $.ajax({
-                    url: '/admin/posts/add',
-                    type: "POST",
-                    data: form,
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    dataType: 'json'
-                }).done(function (res) {
-                    console.log(res);
-                    // callMessage(res);
-                })
-                ;
+                    })
                 e.preventDefault();
             })
-
             // $("#postAdd").on('click',function(){
             //
             //     let file = $('#exampleFormControlFile1').prop('files');

@@ -1,16 +1,14 @@
 <?php
 namespace controllers;
 
-use components\Exceptions\ValidationException;
+use components\Exceptions\CustomValidationException;
 use controllers\heritable\controller;
 use controllers\heritable\resource;
 use Helpers\Helper;
 use model\Category;
 use model\Post;
 use model\Tag;
-use Exception;
-use Respect\Validation\Exceptions\ValidatorException;
-use Respect\Validation\Validator;
+
 
 
 class PostController extends controller implements resource{
@@ -41,26 +39,32 @@ class PostController extends controller implements resource{
         if(method('POST')){
             $image = '';
             $post = $_POST;
-            if($_FILES) {
+            if($post['title'] === '' && $post['content'] === ''){
+                throw new CustomValidationException('Поле title и content обязательны для заполнения', CustomValidationException::TYPE_ERROR);
+            }
+            if(isset($_FILES['image'])&&$_FILES['image']['name'] !== '') {
                 if ($_FILES['image']) {
-//                    throw new ValidationException($_FILES['image']['type']==='image/jpeg', ValidationException::TYPE_ERROR);
+//                    throw new ValidationException(json_encode($_FILES['image']), ValidationException::TYPE_ERROR);
                     if ($_FILES['image']['type'] !== 'image/jpeg' && $_FILES['image']['type'] !== 'image/jpg'&& $_FILES['image']['type'] !== 'image/png') {
-                        throw new ValidationException('Файл неподходящего типа. Рекомендуемые типы jpg, jpeg', ValidationException::TYPE_ERROR);
-                        return false;
+                        throw new CustomValidationException('Файл неподходящего типа. Рекомендуемые типы jpg, jpeg', CustomValidationException::TYPE_ERROR);
                     } else {
-                        throw new ValidationException('agasgfsefasefsef', ValidationException::TYPE_ERROR);
-                        move_uploaded_file ( $_FILES['image']['tmp_name'] , '/public/'.$_FILES['image']['tmp_name'] );
+                        //добавляем хэш к названию на случай если будут добавляться картинки и одинакоми названиями
+                        $image = Helper::hash(rand(1,100)).$_FILES['image']['name'];
+                        move_uploaded_file ( $_FILES['image']['tmp_name'] , 'public/images/' . $image );
                     }
                 } else {
-                    throw new ValidationException('Принимаются только картинки', ValidationException::TYPE_ERROR);
-                    return false;
+                    throw new CustomValidationException('Принимаются только картинки', CustomValidationException::TYPE_ERROR);
                 }
             }
-            if($post['title'] === '' && $post['content'] === ''){
-                throw new ValidationException('Поле title и content обязательны для заполнения', ValidationException::TYPE_ERROR);
-                return false;
+            if(Post::createNew($post,$image)){
+                echo json_encode(
+                   [
+                        'message'   =>  'Запись добавлена',
+                        'code'      =>  CustomValidationException::TYPE_SUCCESS
+                   ]
+                );
+                return true;
             }
-
         } else{
             return view('post.add',compact('tags','categories'));
         }

@@ -37,3 +37,7 @@ function method($method = ''){
         return $method === $_SERVER['REQUEST_METHOD'];
     }
 }
+
+function formatDate(){
+   return date("Y-m-d H:i:s");
+}

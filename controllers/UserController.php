@@ -1,14 +1,12 @@
 <?php
 namespace controllers;
 
-require_once 'heritable/resource.php';
-require_once 'heritable/controllerAdmin.php';
-
-use controllerAdmin;
-use heritable\resource;
 
 
-class UserController extends controllerAdmin implements resource{
+use controllers\heritable\controller;
+use controllers\heritable\resource;
+
+class UserController extends controller implements resource{
 
     const BLOGGER = 1;
     const ADMIN = 2;
@@ -40,7 +38,7 @@ class UserController extends controllerAdmin implements resource{
     }
 
     public function defaultPage(){
-        $this->view->render();
+        view('adminLayouts.layout');
     }
 
     public function display(){

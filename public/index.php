@@ -39,6 +39,7 @@ catch (Exception $e){
             'code'    => $e->getCode()
         ]
     );
+    return false;
 }
 //Helper::out($_SERVER['REQUEST_URI']);
 

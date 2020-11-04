@@ -147,9 +147,8 @@ return [
         'middleware' => 'auth'
     ],
     'admin'=>[
-        'controller' => 'user',
+        'controller' => controllers\UserController::class,
         'action'     => 'defaultPage',
-        'middleware' => 'auth'
     ],
     'admin/logout' =>[
         'controller' => 'user',

@@ -1,6 +1,8 @@
 <?php
 namespace model\extend;
 
+use components\Exceptions\CustomValidationException;
+
 abstract class ActiveRecordEntity
 {
     
@@ -167,11 +169,11 @@ abstract class ActiveRecordEntity
 
         if($this->id!==null){
 
-//            dd($this);
             return  $this->update($mappedProperties);
 
         }
         else{
+
             return $this->insert($mappedProperties);
         }
 
@@ -190,8 +192,7 @@ abstract class ActiveRecordEntity
         $sql = 'UPDATE ' . static::tableName() . ' SET ' . implode(', ', $columns2params) . ' WHERE id = ' . $this->id;
 
         $db = Db::getInstance();
-        $db->query($sql, $params2values, static::class);
-        return true;
+        return $db->query($sql, $params2values, static::class);
     }
 
     private function insert(array $mappedProperties)
@@ -216,7 +217,7 @@ abstract class ActiveRecordEntity
         $db = Db::getInstance();
         $db->query($sql, $params2values, static::class);
         $this->id = $db->getLastInsertId();
-        return true;
+        return $this->id;
     }
 
 

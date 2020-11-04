@@ -2,12 +2,14 @@
 
 namespace model;
 
+use components\DB;
+use components\Exceptions\CustomValidationException;
 use model\extend\Model;
 
 /**
  *
  * @property int       id
- * @property int       author_id
+ * @property int       authorId
  * @property string    title
  * @property string    content
  * @property string    image
@@ -45,11 +47,34 @@ class Post extends Model
         return $this->hasMany(Comment::class,'post_id','','post_comment');
     }
 
-    public function createNew($post){
-        if(isset($post['category'])){
+    public function getImage(){
+        return '/images/'.$this->image;
+    }
 
+    public static function createNew($postData,$image){
+        $post = new self();
+        $post->authorId = 7;
+        $post->title = $postData['title'];
+        $post->content = $postData['content'];
+        $post->image = $image;
+        $post->date = formatDate();
+        $isSave = $post->save();
+        if(!$isSave){
+            throw new CustomValidationException('Ошибка при сохраниении в базу данных', CustomValidationException::TYPE_ERROR);
         }
 
+        if(isset($postData['categories'])){
+            foreach($postData['categories'] as $category){
+                DB::builder()->table('post_category')->insert(['post_id'=>$isSave, 'category_id' =>$category]);
+            }
+        }
+
+        if(isset($postData['tags'])){
+            foreach($postData['tags'] as $tag){
+                DB::builder()->table('post_tag')->insert(['post_id'=>$isSave, 'tag_id' =>$tag]);
+            }
+        }
+        return true;
     }
 
 //

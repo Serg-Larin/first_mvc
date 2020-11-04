@@ -7,4 +7,5 @@ function callMessage(res){
             case 3: toastr.error(res.message);
                 break;
         }
+        return res.code > 1;
 }

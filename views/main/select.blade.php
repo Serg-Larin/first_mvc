@@ -18,7 +18,7 @@
                     @isset($posts)
                     @foreach ($posts as $post)
                     <div class="post">
-                        <label for="single_post_link"><img class="post__image"  src="{{$post->image}}" alt=""></label>
+                        <label for="single_post_link"><img class="post__image"  src="{{$post->getImage()}}" alt=""></label>
                         <div class="post__title" id="single_post_link">
                             <a href="/single/{{$post->getId()}}">{{$post->title}}</a>
                         </div>
