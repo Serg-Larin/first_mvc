@@ -151,9 +151,12 @@ abstract class ActiveRecordEntity
         $mappedProperties = [];
         foreach ($properties as $property) {
             $propertyName = $property->getName();
-            $propertyNameAsUnderscore = $this->camelCaseToUnderscore($propertyName);
-            $mappedProperties[$propertyNameAsUnderscore] = $this->$propertyName;
+            if ($propertyName !== 'id') {
+                $propertyNameAsUnderscore = $this->camelCaseToUnderscore($propertyName);
+                $mappedProperties[$propertyNameAsUnderscore] = $this->$propertyName;
+            }
         }
+//        throw new CustomValidationException(json_encode($mappedProperties), CustomValidationException::TYPE_ERROR);
 
         return $mappedProperties;
     }
@@ -161,14 +164,16 @@ abstract class ActiveRecordEntity
     /**
      * save - сохраняет текущий объект в базу данных
      *
-     * @return bool
+     * @return bool|array
      */
 
     public function save(){
+
+
         $mappedProperties = $this->mapPropertiesToDbFormat();
 
         if($this->id!==null){
-
+//            throw new CustomValidationException(json_encode($this), CustomValidationException::TYPE_ERROR);
             return  $this->update($mappedProperties);
 
         }
@@ -191,12 +196,17 @@ abstract class ActiveRecordEntity
         }
         $sql = 'UPDATE ' . static::tableName() . ' SET ' . implode(', ', $columns2params) . ' WHERE id = ' . $this->id;
 
+//        throw new CustomValidationException(json_encode( $sql), CustomValidationException::TYPE_ERROR);
+//        dd($sql);
         $db = Db::getInstance();
+//        out( $db->query($sql, $params2values, static::class));
+//        throw new CustomValidationException(json_encode( $db->query($sql, $params2values, static::class),false), CustomValidationException::TYPE_ERROR);
         return $db->query($sql, $params2values, static::class);
     }
 
     private function insert(array $mappedProperties)
     {
+
         $filteredProperties = array_filter($mappedProperties);
 
         $columns = [];
@@ -213,7 +223,7 @@ abstract class ActiveRecordEntity
         $paramsNamesViaSemicolon = implode(', ', $paramsNames);
 
         $sql = 'INSERT INTO ' . static::tableName() . ' (' . $columnsViaSemicolon . ') VALUES (' . $paramsNamesViaSemicolon . ');';
-
+        throw new CustomValidationException(json_encode( $sql), CustomValidationException::TYPE_ERROR);
         $db = Db::getInstance();
         $db->query($sql, $params2values, static::class);
         $this->id = $db->getLastInsertId();

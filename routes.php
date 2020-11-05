@@ -8,6 +8,10 @@ return [
         'controller' => 'user',
         'action' => 'registration'
     ],
+    'qwe' => [
+        'controller' => controllers\UserController::class,
+        'action' => 'qwe'
+    ],
     '' =>[
         'controller' => controllers\MainController::class,
         'action'     => 'index',
@@ -86,9 +90,9 @@ return [
         'method'    => 'get'
     ],
     '(admin/posts/edit)/(\d+)' =>[
-        'controller' => 'post',
+        'controller' => controllers\PostController::class,
         'action'    => 'edit',
-        'middleware' => 'auth'
+        'method'    => 'get'
     ],
     '(admin/posts/delete)/(\d+)' =>[
         'controller' => 'post',

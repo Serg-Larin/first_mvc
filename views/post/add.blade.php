@@ -36,6 +36,10 @@
                         <label for="exampleFormControlFile1">Post image</label>
                         <input type="file" name="image" class="form-control-file" id="exampleFormControlFile1">
                     </div>
+                    <div class="form-check">
+                        <input type="checkbox" name="is_public" class="form-check-input" id="is_public">
+                        <label class="form-check-label" for="is_public">Public</label>
+                    </div>
                 </div>
 
             </div>
@@ -58,12 +62,10 @@
                         processData: false,
                         dataType: 'json'
                     }).done(function (res) {
-                        setTimeout(function (){
+                        console.log(res);
                             callMessage(res) ? button.removeAttr('disabled') : setTimeout(function (){
                                 $(location).attr('href', '/admin/posts')
                             },500);
-                        },1000);
-
                     })
                 e.preventDefault();
             })

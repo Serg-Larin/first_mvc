@@ -5,6 +5,7 @@ namespace controllers;
 
 use controllers\heritable\controller;
 use controllers\heritable\resource;
+use model\User;
 
 class UserController extends controller implements resource{
 
@@ -12,6 +13,7 @@ class UserController extends controller implements resource{
     const ADMIN = 2;
 
     public $authorized;
+
 
     public function registration(){
         $this->authorized = 20;

@@ -1,6 +1,8 @@
 <?php
 namespace model\extend;
 
+use components\Exceptions\CustomValidationException;
+
 class Db
 {
 
@@ -23,9 +25,10 @@ class Db
 
     public function query(string $sql, $params = [], $className = 'stdClass'): ?array
     {
+        print_r($sql);
         $sth = $this->connect->prepare($sql);
         $result = $sth->execute($params);
-
+//        throw new CustomValidationException(json_encode( $sth), CustomValidationException::TYPE_ERROR);
         if (false === $result) {
             return null;
         }

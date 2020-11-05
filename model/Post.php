@@ -10,6 +10,7 @@ use model\extend\Model;
  *
  * @property int       id
  * @property int       authorId
+ * @property int       is_public
  * @property string    title
  * @property string    content
  * @property string    image
@@ -18,6 +19,9 @@ use model\extend\Model;
 
 class Post extends Model
 {
+    public const TYPE_PUBLIC = 1;
+    public const TYPE_NOT_PUBLIC = 0;
+
     public static function tableName(){
         return 'posts';
     }
@@ -52,26 +56,63 @@ class Post extends Model
     }
 
     public static function createNew($postData,$image){
-        $post = new self();
-        $post->authorId = 7;
-        $post->title = $postData['title'];
-        $post->content = $postData['content'];
-        $post->image = $image;
-        $post->date = formatDate();
-        $isSave = $post->save();
-        if(!$isSave){
-            throw new CustomValidationException('Ошибка при сохраниении в базу данных', CustomValidationException::TYPE_ERROR);
-        }
+        $postId = Post::updatePost($postData,$image);
 
         if(isset($postData['categories'])){
             foreach($postData['categories'] as $category){
-                DB::builder()->table('post_category')->insert(['post_id'=>$isSave, 'category_id' =>$category]);
+                DB::builder()->table('post_category')->insert(['post_id'=>$postId, 'category_id' =>$category]);
             }
         }
 
         if(isset($postData['tags'])){
             foreach($postData['tags'] as $tag){
-                DB::builder()->table('post_tag')->insert(['post_id'=>$isSave, 'tag_id' =>$tag]);
+                DB::builder()->table('post_tag')->insert(['post_id'=>$postId, 'tag_id' =>$tag]);
+            }
+        }
+        return true;
+    }
+
+    protected static function updatePost($postData,$image){
+        /**
+         * @var $post Post
+         */
+
+        if(isset($postData['id'])){
+            $post = Post::getById($postData['id']);
+        } else {
+            $post = new self();
+        }
+        $post->authorId = 7;
+        $post->is_public = isset($postData['is_public'])?self::TYPE_PUBLIC:self::TYPE_NOT_PUBLIC;
+        $post->title = $postData['title'];
+        $post->content = $postData['content'];
+        $post->image = $image?$image:'qeqwe';
+        $post->date = formatDate();
+//        throw new CustomValidationException(json_encode($post), CustomValidationException::TYPE_ERROR);
+        $isSave = $post->save();
+        throw new CustomValidationException(json_encode($isSave), CustomValidationException::TYPE_ERROR);
+        if(!$isSave){
+            throw new CustomValidationException('Ошибка при сохраниении в базу данных', CustomValidationException::TYPE_ERROR);
+        }
+        return $isSave;
+    }
+
+    public static function updateOne($postData,$image){
+        $postId = Post::updatePost($postData,$image);
+
+//        throw new CustomValidationException(json_encode($postId), CustomValidationException::TYPE_ERROR);
+        if(isset($postData['categories'])){
+            $res = DB::builder()->table('post_category')->where('post_id',$postId)->delete();
+                    throw new CustomValidationException(json_encode([$res,$postId]), CustomValidationException::TYPE_ERROR);
+            foreach($postData['categories'] as $category){
+                DB::builder()->table('post_category')->insert(['post_id'=>$postId, 'category_id' =>$category]);
+            }
+        }
+
+        if(isset($postData['tags'])){
+            DB::builder()->table('post_tag')->where('post_id',$postId)->delete();
+            foreach($postData['tags'] as $tag){
+                DB::builder()->table('post_tag')->insert(['post_id'=>$postId, 'tag_id' =>$tag]);
             }
         }
         return true;

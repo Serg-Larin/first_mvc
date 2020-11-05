@@ -13,7 +13,7 @@ use model\extend\Model;
  * @property string image
  */
 
-class User extends Model {
+class User extends \Pixie\QueryBuilder\QueryBuilderHandler {
 
     public static function tableName(){
         return 'users';
