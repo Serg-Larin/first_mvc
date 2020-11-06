@@ -1,6 +1,7 @@
 <?php
 namespace controllers;
 
+use components\Exceptions\CustomValidationException;
 use controllers\heritable\controller;
 use controllers\heritable\resource;
 use Helpers\Helper;
@@ -17,8 +18,8 @@ class TagController extends controller implements resource
     }
 
     public function edit($id){
-        $tag = Tag::getById($id);
-        if($_POST) {
+        $tag = Tag::find($id);
+        if(method('POST')) {
             if ($tag) {
                 $validate = Validator::max(20)->stringType()->validate($_POST['tag']);
                 if($validate) {
@@ -26,11 +27,14 @@ class TagController extends controller implements resource
                     $tag->name = $tagName;
                     $tag->save();
                 }
-                Helper::redirect('/admin/tags');
+                echo json_encode([
+                    'message' => 'Тег отредактирован',
+                    'code'    => CustomValidationException::TYPE_INFO
+                ]);
             }
+        }else {
+            view('tag.edit', compact('tag'));
         }
-        view('tag.edit', compact('tag'));
-
     }
 
     public function add(){
@@ -40,15 +44,18 @@ class TagController extends controller implements resource
             $validate = Validator::max(20)->stringType()->validate($tag);
             if($validate){
                 Tag::createNew($tag);
-                Helper::redirect('/admin/tags');
             }
+            echo json_encode([
+                'message' => 'Тег добавлен',
+                'code'    => CustomValidationException::TYPE_SUCCESS
+            ]);
         }
         else {
             return view('tag.add');
         }
     }
     public function delete($id){
-        $tag = Tag::getById($id);
+        $tag = Tag::find($id);
         if($tag){
             $tag->delete();
             Helper::redirect('/admin/tags');

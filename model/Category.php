@@ -2,6 +2,7 @@
 
 namespace model;
 
+use components\Exceptions\CustomValidationException;
 use model\extend\ModelMutator;
 use \Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -23,7 +24,6 @@ class Category extends ModelMutator{
     public static function createNew($categoryName){
         $category = new Category();
         $category -> name = $categoryName;
-        print_r($category);
         return $category -> save();
     }
 

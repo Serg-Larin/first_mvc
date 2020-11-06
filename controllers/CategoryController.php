@@ -1,6 +1,7 @@
 <?php
 namespace controllers;
 
+use components\Exceptions\CustomValidationException;
 use controllers\heritable\controller;
 use controllers\heritable\resource;
 use Helpers\Helper;
@@ -16,7 +17,8 @@ class CategoryController extends controller implements resource {
 
     public function edit($id){
         $category = Category::find($id);
-        if($_POST) {
+
+        if(method('POST')) {
             if ($category) {
                 $validate = Validator::max(20)->stringType()->validate($_POST['category']);
                 if($validate) {
@@ -24,11 +26,14 @@ class CategoryController extends controller implements resource {
                     $category->name = $categoryName;
                     $category->save();
                 }
-                Helper::redirect('/admin/categories');
+                echo json_encode([
+                    'message' => 'Категория отредактирована',
+                    'code'    => CustomValidationException::TYPE_INFO
+                ]);
             }
+        } else {
+            view('category.edit', compact('category'));
         }
-        view('category.edit', compact('category'));
-
     }
 
     public function add(){
@@ -38,22 +43,19 @@ class CategoryController extends controller implements resource {
             $validate = Validator::max(20)->stringType()->validate($category);
             if($validate){
                 Category::createNew($category);
-                Helper::redirect('/admin/categories');
             }
+            echo json_encode([
+                'message' => 'Категория добавлена',
+                'code'    => CustomValidationException::TYPE_SUCCESS
+            ]);
         }
         else {
             return view('category.add');
         }
     }
     public function delete($id){
-        $category = Category::getById($id);
-        if($category){
-            $category->delete();
-            Helper::redirect('/admin/categories');
-        }
+        Category::where('id',$id)->delete();
         Helper::redirect('/admin/categories');
     }
-    public function getCategoryStatus($id){
-        echo json_encode($this->model->belongToPost($id));
-    }
+
 }
