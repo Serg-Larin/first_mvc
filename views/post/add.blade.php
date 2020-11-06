@@ -9,7 +9,7 @@
                     <label for="categories">Categories</label>
                     <select id="categories" name="categories[]"  class="form-control"  multiple="multiple" >
                     @foreach ($categories as $category)
-                        <option value="{{$category->getId()}}">{{$category->name}}</option>
+                        <option value="{{$category->id}}">{{$category->name}}</option>
                     @endforeach
                     </select>
                     </div>
@@ -17,7 +17,7 @@
                     <label for="tags" >Tags</label>
                     <select id="tags"  name="tags[]" class="form-control"  multiple="multiple" >
                         @foreach ($tags as $tag)
-                            <option value="{{$tag->getId()}}">{{$tag->name}}</option>
+                            <option value="{{$tag->id}}">{{$tag->name}}</option>
                         @endforeach
                     </select>
                     </div>
@@ -28,6 +28,10 @@
                     <div class="form-group">
                         <label for="exampleFormControlTextarea1">Content</label>
                         <textarea name="content" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="short_description">Short Description</label>
+                        <textarea name="short_description" class="form-control" id="short_description" rows="3" >{{$editedPost->short_description}}</textarea>
                     </div>
                     <button type="submit" class="btn btn-primary" id="postAdd">Submit</button>
                 </div>
@@ -63,9 +67,9 @@
                         dataType: 'json'
                     }).done(function (res) {
                         console.log(res);
-                            callMessage(res) ? button.removeAttr('disabled') : setTimeout(function (){
-                                $(location).attr('href', '/admin/posts')
-                            },500);
+                        callMessage(res) ?  setTimeout(function (){
+                            $(location).attr('href', '/admin/posts')
+                        },500) : button.removeAttr('disabled');
                     })
                 e.preventDefault();
             })

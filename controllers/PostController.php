@@ -14,13 +14,13 @@ use model\Tag;
 class PostController extends controller implements resource{
 
     public function display($page=0){
-        $posts = Post::findAll();
+        $posts = Post::all();
         return view('post.display',compact('posts'));
     }
 
     public function add(){
-        $tags = Tag::findAll();
-        $categories = Category::findAll();
+        $tags = Tag::All();
+        $categories = Category::All();
         if(method('POST')){
             $image = '';
             $post = $_POST;
@@ -49,13 +49,13 @@ class PostController extends controller implements resource{
             }
 
             if(Post::createNew($post,$image)){
-                echo json_encode(
+                die(json_encode(
                    [
                         'message'   =>  'Запись добавлена',
                         'code'      =>  CustomValidationException::TYPE_SUCCESS
                    ]
-                );
-                return true;
+                ));
+//                return true;
             }
         } else{
             return view('post.add',compact('tags','categories'));
@@ -63,6 +63,10 @@ class PostController extends controller implements resource{
     }
 
     public function edit($id){
+        /**
+         * @var Post $editedPost
+         */
+        $editedPost = Post::find($id);
         if(method('POST')){
             $image = '';
             $post = $_POST;
@@ -84,30 +88,30 @@ class PostController extends controller implements resource{
                 }
             }
             //Для отображения на главной странице необходима картинка
-            elseif(isset($post['is_public'])){
-                if($image===''){
+            elseif(isset($post['is_public'])&&$editedPost->image=='') {
+                if ($image === '') {
                     throw new CustomValidationException('Для открытой публикации необходимо добавить картинку', CustomValidationException::TYPE_ERROR);
                 }
             }
             if(Post::updateOne($post,$image)){
-                echo json_encode(
+                die(json_encode(
                     [
                         'message'   =>  'Запись отредактирована',
                         'code'      =>  CustomValidationException::TYPE_INFO
                     ]
-                );
-                return true;
+                ));
+//                return true;
             }
         } else {
-            $post = Post::getById($id);
-            $postCategories = $post->categories();
-            $postTags = $post->tags();
-            $tags = Tag::findAll();
-            $categories = Category::findAll();
+
+            $postCategories = $editedPost->categories()->get();
+            $postTags = $editedPost->tags()->get();
+            $tags = Tag::All();
+            $categories = Category::All();
 
 
             return view('post.edit', compact(
-                'post',
+                'editedPost',
                 'postCategories',
                 'postTags',
                 'tags',
@@ -116,7 +120,7 @@ class PostController extends controller implements resource{
         }
 
     public function delete($id){
-        $this->model->deleteRecord($id);
+        Post::where('id',$id)->delete();
         Helper::redirect('/admin/posts');
     }
 }

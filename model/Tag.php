@@ -1,14 +1,14 @@
 <?php
 namespace model;
 
-use model\extend\Model;
+use model\extend\ModelMutator;
 
 /**
  * @property int    id
  * @property string name
  */
 
-class Tag extends Model {
+class Tag extends ModelMutator {
 
     public static function tableName(){
         return 'tags';

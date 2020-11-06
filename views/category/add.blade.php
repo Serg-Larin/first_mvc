@@ -2,7 +2,6 @@
 @section('content')
 <h1><b>New category</b></h1>
 <hr>
-@if(!empty($_POST)){{dd($_POST)}}@endif
 <div class="col-4">
     <form action="/admin/category/add" method="post">
         <div class="form-group">

@@ -7,7 +7,7 @@
 <div class="form-group">
     <label for="formGroupExampleInput2">category</label>
     <input type="text" class="form-control" name="category" value="{{$category->name}}" id="formGroupExampleInput2" >
-    <input type="text" name="id" value="{{$category->getId()}}" hidden="hidden">
+    <input type="text" name="id" value="{{$category->id}}" hidden="hidden">
 </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>

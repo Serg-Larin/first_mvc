@@ -12,7 +12,7 @@ class TagController extends controller implements resource
 {
 
     public function display(){
-        $tags =  Tag::findAll();
+        $tags =  Tag::All();
         return view('tag.display',compact('tags'));
     }
 

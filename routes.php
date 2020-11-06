@@ -95,9 +95,8 @@ return [
         'method'    => 'get'
     ],
     '(admin/posts/delete)/(\d+)' =>[
-        'controller' => 'post',
+        'controller' => controllers\PostController::class,
         'action'    => 'delete',
-        'middleware' => 'auth'
     ],
 
            //admin/tags
@@ -131,9 +130,9 @@ return [
            //admin/users
 
     '(admin/users)' =>[
-        'controller' => 'user',
+        'controller' =>  controllers\UserController::class,
         'action'    => 'display',
-        'middleware' => 'auth'
+
     ],
     '(admin/user/add)' =>[
         'controller' => 'user',

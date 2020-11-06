@@ -10,12 +10,12 @@ use Respect\Validation\Validator;
 class CategoryController extends controller implements resource {
 
     public function display(){
-       $categories =  Category::findAll();
+       $categories =  Category::All();
        return view('category.display',compact('categories'));
     }
 
     public function edit($id){
-        $category = Category::getById($id);
+        $category = Category::find($id);
         if($_POST) {
             if ($category) {
                 $validate = Validator::max(20)->stringType()->validate($_POST['category']);

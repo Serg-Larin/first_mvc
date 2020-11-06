@@ -4,51 +4,56 @@ namespace model;
 
 use components\DB;
 use components\Exceptions\CustomValidationException;
-use model\extend\Model;
+use model\extend\ModelMutator;
+use \Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use \Illuminate\Database\Eloquent\Relations\HasMany;
+use \Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 
 /**
  *
  * @property int       id
- * @property int       authorId
+ * @property int       author_id
  * @property int       is_public
  * @property string    title
+ * @property string    short_description
  * @property string    content
  * @property string    image
- * @property string    date
+ * @property string    created_at
+ * @property string    updated_at
  */
 
-class Post extends Model
+class Post extends ModelMutator
 {
     public const TYPE_PUBLIC = 1;
     public const TYPE_NOT_PUBLIC = 0;
 
-    public static function tableName(){
-        return 'posts';
-    }
+    protected $table = 'posts';
+    protected $guarded = ['updated_at'];
 
     /**
-     * @return Category|array
+     * @return BelongsToMany|array
      */
     public function categories(){
         return $this->belongsToMany(Category::class,'post_category');
     }
     /**
-     * @return User|array
+     * @return BelongsTo|array
      */
     public function user(){
-        return $this->belongsTo(User::class,'author_id','');
+        return $this->BelongsTo(User::class,'author_id','id');
     }
     /**
-     * @return Tag|array
+     * @return BelongsToMany|array
      */
     public function tags(){
         return $this->belongsToMany(Tag::class,'post_tag');
     }
     /**
-     * @return Comment|array
+     * @return HasMany|array
      */
     public function comments(){
-        return $this->hasMany(Comment::class,'post_id','','post_comment');
+        return $this->hasMany(Comment::class);
     }
 
     public function getImage(){
@@ -56,20 +61,33 @@ class Post extends Model
     }
 
     public static function createNew($postData,$image){
-        $postId = Post::updatePost($postData,$image);
+        /**
+         * @var Post $post
+         */
+
+        $post = Post::updatePost($postData,$image);
 
         if(isset($postData['categories'])){
             foreach($postData['categories'] as $category){
-                DB::builder()->table('post_category')->insert(['post_id'=>$postId, 'category_id' =>$category]);
+                DB::builder()->table('post_category')->insert(['post_id'=>$post->id, 'category_id' =>$category]);
             }
         }
 
         if(isset($postData['tags'])){
             foreach($postData['tags'] as $tag){
-                DB::builder()->table('post_tag')->insert(['post_id'=>$postId, 'tag_id' =>$tag]);
+                DB::builder()->table('post_tag')->insert(['post_id'=>$post->id, 'tag_id' =>$tag]);
             }
         }
         return true;
+    }
+
+    public function check_public(){
+        return $this->is_public?
+            '<i class="far fa-check-circle fa-2x" style="color: green"></i>':
+            '<i class="far fa-times-circle fa-2x" style="color: red"></i>';
+    }
+    public function check_redact(){
+        return $this->created_at!=$this->updated_at?'<i class="far fa-edit fa-2x" style="color: #ffa500"></i>':'';
     }
 
     protected static function updatePost($postData,$image){
@@ -78,41 +96,46 @@ class Post extends Model
          */
 
         if(isset($postData['id'])){
-            $post = Post::getById($postData['id']);
+            $post = Post::find($postData['id']);
         } else {
             $post = new self();
         }
-        $post->authorId = 7;
+        $post->author_id = 7;
         $post->is_public = isset($postData['is_public'])?self::TYPE_PUBLIC:self::TYPE_NOT_PUBLIC;
         $post->title = $postData['title'];
+        $post->short_description = $postData['short_description'];
         $post->content = $postData['content'];
-        $post->image = $image?$image:'qeqwe';
-        $post->date = formatDate();
-//        throw new CustomValidationException(json_encode($post), CustomValidationException::TYPE_ERROR);
+        if($image !== ''){
+            if($post->image){
+               unlink('public/images/'.$post->image);
+            }
+            $post->image = $image;
+        }
         $isSave = $post->save();
-        throw new CustomValidationException(json_encode($isSave), CustomValidationException::TYPE_ERROR);
         if(!$isSave){
             throw new CustomValidationException('Ошибка при сохраниении в базу данных', CustomValidationException::TYPE_ERROR);
         }
-        return $isSave;
+        return $post;
     }
 
     public static function updateOne($postData,$image){
-        $postId = Post::updatePost($postData,$image);
+        $post = Post::updatePost($postData,$image);
 
-//        throw new CustomValidationException(json_encode($postId), CustomValidationException::TYPE_ERROR);
         if(isset($postData['categories'])){
-            $res = DB::builder()->table('post_category')->where('post_id',$postId)->delete();
-                    throw new CustomValidationException(json_encode([$res,$postId]), CustomValidationException::TYPE_ERROR);
+            if($post->categories()->get()) {
+                $res = DB::builder()->table('post_category')->where('post_id', $post->id)->delete();
+            }
             foreach($postData['categories'] as $category){
-                DB::builder()->table('post_category')->insert(['post_id'=>$postId, 'category_id' =>$category]);
+                DB::builder()->table('post_category')->insert(['post_id'=>$post->id, 'category_id' =>$category]);
             }
         }
 
         if(isset($postData['tags'])){
-            DB::builder()->table('post_tag')->where('post_id',$postId)->delete();
+            if($post->tags()->get()) {
+                DB::builder()->table('post_tag')->where('post_id', $post->id)->delete();
+            }
             foreach($postData['tags'] as $tag){
-                DB::builder()->table('post_tag')->insert(['post_id'=>$postId, 'tag_id' =>$tag]);
+                DB::builder()->table('post_tag')->insert(['post_id'=>$post->id, 'tag_id' =>$tag]);
             }
         }
         return true;

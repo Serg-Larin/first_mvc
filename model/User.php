@@ -2,7 +2,8 @@
 
 namespace model;
 
-use model\extend\Model;
+use model\extend\ModelMutator;
+
 /**
  *
  * @property int    id
@@ -13,9 +14,6 @@ use model\extend\Model;
  * @property string image
  */
 
-class User extends \Pixie\QueryBuilder\QueryBuilderHandler {
-
-    public static function tableName(){
-        return 'users';
-    }
+class User extends ModelMutator {
+    protected $table = 'users';
 }

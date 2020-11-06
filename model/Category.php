@@ -2,7 +2,8 @@
 
 namespace model;
 
-use model\extend\Model;
+use model\extend\ModelMutator;
+use \Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  *
@@ -10,22 +11,19 @@ use model\extend\Model;
  * @property string name
  */
 
-class Category extends Model{
-
-    public static function tableName(){
-        return 'categories';
-    }
+class Category extends ModelMutator{
 
     /**
-     * @return Post|array
+     * @return BelongsToMany
      */
     public function posts(){
-        return $this->belongsToMany(Post::class,'post_category');
+        return $this->belongsToMany(Post::class);
     }
 
     public static function createNew($categoryName){
         $category = new Category();
         $category -> name = $categoryName;
+        print_r($category);
         return $category -> save();
     }
 

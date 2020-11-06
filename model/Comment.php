@@ -2,7 +2,7 @@
 
 namespace model;
 
-use model\extend\Model;
+use model\extend\ModelMutator;
 
 /**
  *
@@ -13,14 +13,12 @@ use model\extend\Model;
  * @property string date
  */
 
-class Comment extends Model
+class Comment extends ModelMutator
 {
-    public static function tableName(){
-        return 'post_comment';
-    }
+    protected $table = 'post_comment';
 
-    public function sub_comment(){
-        return $this->belongsToMany(SubComment::class,'post_comment','comment_id','id');
+    public function sub_comments(){
+        return $this->belongsToMany(SubComment::class);
     }
 
 

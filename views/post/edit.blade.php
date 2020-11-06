@@ -14,14 +14,15 @@
                     <label for="categories">Categories</label>
                     <select id="categories" name="categories[]"  class="form-control"  multiple="multiple" >
                         @foreach($categories as $category)
-                            @foreach($postCategories as $postCategory)
-                            <option value="{{$category->getId()}}"
-                            @if(isset($postCategory)&&$postCategory->getId()===$category->getId())
-                                    selected
-                                    @endif
+                            <option value="{{$category->id}}"
+                                    @foreach($postCategories as $postCategory)
+                                        @if(isset($postCategory)&&$postCategory->id===$category->id)
+                                            selected
+                                        @endif
+                                    @endforeach
                                 >
                                 {{$category->name}}</option>
-                            @endforeach
+
                         @endforeach
                     </select>
                 </div>
@@ -29,9 +30,9 @@
                     <label for="tags" >Tags</label>
                     <select id="tags"  name="tags[]" class="form-control"  multiple="multiple" >
                         @foreach($tags as $tag)
-                            <option value="{{$tag->getId()}}"
+                            <option value="{{$tag->id}}"
                             @foreach($postTags as $postTag)
-                                    @if(isset($postTag)&&$postTag->getId()===$tag->getId())
+                                    @if(isset($postTag)&&$postTag->id===$tag->id)
                                             selected
                                     @endif
                             @endforeach
@@ -41,13 +42,17 @@
                 </div>
                 <div class="form-group">
                     <label for="formGroupExampleInput2">Title</label>
-                    <input type="text" name="title" class="form-control" id="formGroupExampleInput2" value="{{$post->title}}" >
+                    <input type="text" name="title" class="form-control" id="formGroupExampleInput2" value="{{$editedPost->title}}" >
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlTextarea1">Content</label>
-                    <textarea name="content" class="form-control" id="exampleFormControlTextarea1" rows="3" >{{$post->content}}</textarea>
+                    <textarea name="content" class="form-control" id="exampleFormControlTextarea1" rows="3" >{{$editedPost->content}}</textarea>
                 </div>
-                <input type="text" value="{{$post->getId()}}" name="id" hidden>
+                <div class="form-group">
+                    <label for="short_description">Short Description</label>
+                    <textarea name="short_description" class="form-control" id="short_description" rows="3" >{{$editedPost->short_description}}</textarea>
+                </div>
+                <input type="text" value="{{$editedPost->id}}" name="id" hidden>
                 <button type="submit" id="postEdit" class="btn btn-primary">Submit</button>
             </div>
             <div class="col-4">
@@ -56,8 +61,13 @@
                     <input type="file" name="image" class="form-control-file" id="image" >
                 </div>
                 <div class="form-check">
-                    <input type="checkbox" name="is_public" class="form-check-input" @if($post->isPublic) checked @endif id="is_public">
+                    <input type="checkbox" name="is_public" class="form-check-input" @if($editedPost->is_public) checked @endif id="is_public">
                     <label class="form-check-label" for="is_public">Public</label>
+                </div>
+                <div class="form-check">
+                    <div>
+                        <img src="{{$editedPost->getImage()}}" alt="Картинка не добавлена" height="300" width="250">
+                    </div>
                 </div>
             </div>
 
@@ -70,8 +80,9 @@
             let form = new FormData(this);
             let button = $('#postEdit');
             button.attr('disabled',true);
+
             $.ajax({
-                url: '/admin/posts/edit/{{$post->getId()}}',
+                url: '/admin/posts/edit/{{$editedPost->id}}',
                 type: "POST",
                 data: form,
                 cache: false,
@@ -80,9 +91,9 @@
                 dataType: 'json'
             }).done(function (res) {
                 console.log(res);
-                callMessage(res) ? button.removeAttr('disabled') : setTimeout(function (){
+                callMessage(res) ?  setTimeout(function (){
                     $(location).attr('href', '/admin/posts')
-                },500);
+                },500) : button.removeAttr('disabled');
             })
             e.preventDefault();
         })

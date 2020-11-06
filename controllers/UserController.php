@@ -44,8 +44,8 @@ class UserController extends controller implements resource{
     }
 
     public function display(){
-        $params=$this->model->selectAllRecords();
-        $this->view->render($params);
+        $users = User::all();
+        view('user.display',compact('users'));
     }
 
     public function edit($id){

@@ -19,10 +19,10 @@
             <div>
                 @foreach ($tags as $tag)
                 <tr>
-                    <th>{{$tag->getId()}}</th>
+                    <th>{{$tag->id}}</th>
                     <td>{{$tag->name}}</td>
-                    <td><div ><a href="/admin/tag/edit/{{$tag->getId()}}"><i class="fa fa-edit fa-2x edit" title="edit"></i></a></div></td>
-                    <td><div ><a href="/admin/tag/delete/{{$tag->getId()}}"><i class="fas fa-trash fa-2x remove" title="remove"></i></a></div></td>
+                    <td><div ><a href="/admin/tag/edit/{{$tag->id}}"><i class="fa fa-edit fa-2x edit" title="edit"></i></a></div></td>
+                    <td><div ><a href="/admin/tag/delete/{{$tag->id}}"><i class="fas fa-trash fa-2x remove" title="remove"></i></a></div></td>
                 </tr>
                 @endforeach
             </div>

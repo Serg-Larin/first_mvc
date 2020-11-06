@@ -2,7 +2,7 @@
 
 namespace model;
 
-use model\extend\Model;
+use model\extend\ModelMutator;
 
 /**
  *
@@ -13,7 +13,7 @@ use model\extend\Model;
  */
 
 
-class SubComment extends Model
+class SubComment extends ModelMutator
 {
     public static function tableName(){
         return 'comment_sub';

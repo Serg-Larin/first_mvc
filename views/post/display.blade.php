@@ -10,9 +10,14 @@
             <thead>
             <tr style="max-height: 30px">
                 <th style="width: 5px">#</th>
+                <th style="width: 5px">public</th>
+                <th style="width: 5px">edited</th>
                 <th style="width: 5px">Author</th>
-                <th >title</th>
-                <th >description</th>
+                <th>title</th>
+                <th>Short description</th>
+                <th>create_at</th>
+                <th>update_at</th>
+
                 <th colspan="2" ></th>
 
             </tr>
@@ -23,13 +28,16 @@
             <div >
                 @foreach ($posts as $post)
                 <tr>
-                <th>{{$post->getId()}}</th>
-                <td>{{$post->user()->login}}</td>
+                <th>{{$post->id}}</th>
+                <th>{!!$post->check_public()!!}</th>
+                <th>{!!$post->check_redact()!!}</th>
+                <td>{{$post->user()->first()->login}}</td>
                 <td>{{$post->title}}</td>
-                <td style="max-height: 10px"><div class="box" style="max-height: 40px; "><p style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{$post->content}}</p></div></td>
-
-                <td><div ><a href="/admin/posts/edit/{{$post->getId()}}"><i class="fa fa-edit fa-2x edit" title="edit"></i></a></div></td>
-                <td><div ><a href="/admin/posts/delete/{{$post->getId()}}"><i class="fas fa-trash fa-2x remove" title="remove"></i></a></div></td>
+                <td style="max-height: 10px"><div class="box" style="max-height: 40px; "><p style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{$post->short_description}}</p></div></td>
+                <td>{{$post->created_at}}</td>
+                <td>{{$post->updated_at}}</td>
+                <td><div ><a href="/admin/posts/edit/{{$post->id}}"><i class="fa fa-edit fa-2x edit" title="edit"></i></a></div></td>
+                <td><div ><a href="/admin/posts/delete/{{$post->id}}"><i class="fas fa-trash fa-2x remove" title="remove"></i></a></div></td>
                 </tr>
                 @endforeach
 
