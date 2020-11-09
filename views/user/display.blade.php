@@ -26,7 +26,7 @@
                     <td>{{$user->login}}</td>
 
                     <td style="max-height: 10px"><div class="box" style="max-height: 40px; ">{{$user->email}}</div></td>
-                    <td>{{$user->type}}</td>
+                    <td>{{$types[$user->type]}}</td>
                     <td><div ><a href="/admin/user/edit/{{$user->id}}"><i class="fa fa-edit fa-2x edit" title="edit"></i></a></div></td>
                     <td><div ><a href="/admin/user/delete/{{$user->id}}"><i class="fas fa-trash fa-2x remove" title="remove"></i></a></div></td>
 

@@ -5,7 +5,8 @@
         "usmanhalalit/pixie": "2.*@dev",
         "respect/validation": "^2.0",
         "ext-json": "*",
-        "illuminate/database": "^7.29"
+        "illuminate/database": "^7.29",
+        "illuminate/validation": "^7.29"
     },
     "require-dev": {
         "symfony/var-dumper": "^5.1"

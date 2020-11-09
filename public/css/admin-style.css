@@ -8,12 +8,16 @@
 .admin_list{
     border-right: 1px solid black;
     padding-right:0;
-    background-color: #00d3ff;
+    background-color: lightblue;
     min-height: 800px;
 }
 .admin_list div:hover{
     background-color: #343a40;
-    color: #00d3ff;
+    color: lightblue;
+}
+.admin_list_focus{
+    background-color: #343a40;
+    color: lightblue;
 }
 
 .admin_list div{
@@ -90,8 +94,13 @@
     height: 20px;
     margin: 5px;
     background-color: #00d3ff;
-    color: white;
+    color: lightblue;
 }
 .admin_pagination div a{
     text-decoration: none;
+}
+#admin_nav{
+    display: flex;
+    flex-direction: row-reverse;
+    /*justify-content: space-between;*/
 }

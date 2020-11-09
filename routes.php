@@ -1,17 +1,6 @@
 <?php
 
-use controllers\MainController;
-
 return [
-
-    '(account/registration)' => [
-        'controller' => 'user',
-        'action' => 'registration'
-    ],
-    'qwe' => [
-        'controller' => controllers\UserController::class,
-        'action' => 'qwe'
-    ],
     '' =>[
         'controller' => controllers\MainController::class,
         'action'     => 'index',
@@ -135,33 +124,30 @@ return [
 
     ],
     '(admin/user/add)' =>[
-        'controller' => 'user',
+        'controller' => controllers\UserController::class,
         'action'    => 'add',
-        'middleware' => 'auth'
     ],
     '(admin/user/edit)/(\d+)' =>[
-        'controller' => 'user',
+        'controller' => controllers\UserController::class,
         'action'    => 'edit',
-        'middleware' => 'auth'
     ],
     '(admin/user/delete)/(\d+)' =>[
-        'controller' => 'user',
+        'controller' => controllers\UserController::class,
         'action'    => 'delete',
-        'middleware' => 'auth'
     ],
     'admin'=>[
         'controller' => controllers\UserController::class,
         'action'     => 'defaultPage',
     ],
     'admin/logout' =>[
-        'controller' => 'user',
+        'controller' => controllers\Auth::class,
         'action'     => 'logout',
-        'middleware' => 'auth'
+
     ],
-    'account/authorization' =>[
-        'controller' => 'user',
-        'action'     => 'authorization',
-        'middleware' => 'onAuth'
+    'account/login' =>[
+        'controller' => controllers\Auth::class,
+        'action'     => 'login',
+
     ]
 
 ];

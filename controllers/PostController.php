@@ -35,7 +35,7 @@ class PostController extends controller implements resource{
                     } else {
                         //добавляем хэш к названию на случай если будут добавляться картинки и одинакоми названиями
                         $image = Helper::hash(rand(1,100)).$_FILES['image']['name'];
-                        move_uploaded_file ( $_FILES['image']['tmp_name'] , 'public/images/' . $image );
+                        move_uploaded_file ( $_FILES['image']['tmp_name'] , Post::UPLOADS . $image );
                     }
                 } else {
                     throw new CustomValidationException('Принимаются только картинки', CustomValidationException::TYPE_ERROR);
@@ -81,7 +81,7 @@ class PostController extends controller implements resource{
                     } else {
                         //добавляем хэш к названию на случай если будут добавляться картинки и одинакоми названиями
                         $image = Helper::hash(rand(1,100)).$_FILES['image']['name'];
-                        move_uploaded_file ( $_FILES['image']['tmp_name'] , 'public/images/' . $image );
+                        move_uploaded_file ( $_FILES['image']['tmp_name'] , Post::UPLOADS . $image );
                     }
                 } else {
                     throw new CustomValidationException('Принимаются только картинки', CustomValidationException::TYPE_ERROR);
@@ -120,7 +120,13 @@ class PostController extends controller implements resource{
         }
 
     public function delete($id){
-        Post::where('id',$id)->delete();
+       $post = Post::find($id);
+        if($post && $post->image){
+            $image = Post::UPLOADS.$post->image;
+            if(file_exists($image)){
+                unlink($image);
+            }
+        }
         Helper::redirect('/admin/posts');
     }
 }

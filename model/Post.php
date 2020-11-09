@@ -25,6 +25,8 @@ use \Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Post extends ModelMutator
 {
+    public const UPLOADS = 'public/images/uploads/posts/';
+
     public const TYPE_PUBLIC = 1;
     public const TYPE_NOT_PUBLIC = 0;
 
@@ -107,7 +109,9 @@ class Post extends ModelMutator
         $post->content = $postData['content'];
         if($image !== ''){
             if($post->image){
-               unlink('public/images/'.$post->image);
+                if(file_exists('public/images/uploads/posts/'.$post->image)){
+                    unlink('public/images/uploads/posts/'.$post->image);
+                }
             }
             $post->image = $image;
         }

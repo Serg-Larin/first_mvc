@@ -31,7 +31,7 @@
                     </div>
                     <div class="form-group">
                         <label for="short_description">Short Description</label>
-                        <textarea name="short_description" class="form-control" id="short_description" rows="3" >{{$editedPost->short_description}}</textarea>
+                        <textarea name="short_description" class="form-control" id="short_description" rows="3"></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary" id="postAdd">Submit</button>
                 </div>
