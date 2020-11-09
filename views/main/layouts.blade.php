@@ -7,6 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title><?php echo isset($arg['blogName']) ? $arg['blogName'] : 'Blogich';?></title>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="/css/toastr.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="/js/toastr.js.map"></script>
+    <script src="/js/toastr.min.js"></script>
+    <script src="/js/functions.js"></script>
     <link rel="stylesheet" href="">
     <!--    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">-->
     <!--    <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">-->

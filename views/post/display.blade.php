@@ -15,8 +15,8 @@
                 <th style="width: 5px">Author</th>
                 <th>title</th>
                 <th>Short description</th>
-                <th>create_at</th>
-                <th>update_at</th>
+                <th>created_at</th>
+                <th>updated_at</th>
 
                 <th colspan="2" ></th>
 

@@ -46,7 +46,7 @@ class Router
     public function route()
     {
         $request = $this->maches();
-
+//        dump($request);
         /*Достаем контроллер*/
         if(isset($request['controller'])&&!empty($request['controller'])) {
             $controller = $request['controller'];

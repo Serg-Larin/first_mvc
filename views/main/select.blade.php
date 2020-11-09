@@ -18,9 +18,10 @@
                     @isset($posts)
                     @foreach ($posts as $post)
                     <div class="post">
-                        <label for="single_post_link"><img class="post__image"  src="{{$post->getImage()}}" alt=""></label>
+                        <label for="single_post_link">
+                            <img class="post__image"  src="{{$post->getImage()}}" alt=""></label>
                         <div class="post__title" id="single_post_link">
-                            <a href="/single/{{$post->getId()}}">{{$post->title}}</a>
+                            <a href="/single/{{$post->id}}">{{$post->title}}</a>
                         </div>
                         <div class="post__description">
                         {{$post->content}}
@@ -28,30 +29,30 @@
                             <div class="post__author">
                                 <span>Автор:</span>
                                 <a href="">
-                                    {{$post->user()->login}}
+                                    {{$post->user()->first()->login}}
                                 </a>
                             </div>
                             <div class="post__component"><span>Категории:</span>
-                                @if(!empty($post->categories()))
-                                @foreach ($post->categories() as $category)
+                                @if(!empty($post->categories()->get()))
+                                @foreach ($post->categories()->get() as $category)
                                 <a href="/category/{{$category->name}}" class="component_common_category">
                                     {{$category->name}}
                                 </a>
                                 @endforeach
                                 @endif
-                                
+
                             </div>
                             <div class="post__component">
                                 <span>Тэги:</span>
 
-                                @if(!empty($post->tags()))
-                                @foreach ($post->tags() as  $tag)
+                                @if(!empty($post->tags()->get()))
+                                @foreach ($post->tags()->get() as  $tag)
                                 <a href="/tag/{{$tag->name}}" class="component_common_tag">
                                     {{$tag->name}}
                                 </a>
                                 @endforeach
                                 @endif
-                                
+
                             </div>
                             <div class="post__date">
                                 5th may of 2020.

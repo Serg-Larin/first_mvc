@@ -121,6 +121,7 @@ class PostController extends controller implements resource{
 
     public function delete($id){
        $post = Post::find($id);
+       $post->delete();
         if($post && $post->image){
             $image = Post::UPLOADS.$post->image;
             if(file_exists($image)){

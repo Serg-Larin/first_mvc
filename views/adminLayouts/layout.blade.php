@@ -36,7 +36,7 @@
 
                 <div class="nav-item dropdown" style="margin-right:50px; ">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img src="/images/uploads/users/98dce83da57b0395e163467c9dae521bкартинка.jpg"
+                        <img src="{{\controllers\Auth::user()->getImage()}}"
                              style="
                              height:50px;
                              width: 50px;

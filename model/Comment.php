@@ -2,6 +2,7 @@
 
 namespace model;
 
+use components\Exceptions\CustomValidationException;
 use model\extend\ModelMutator;
 
 /**
@@ -21,5 +22,12 @@ class Comment extends ModelMutator
         return $this->belongsToMany(SubComment::class);
     }
 
+    public static function createNew($post){
+        $comment =new self();
+        $comment->email = $post['email'];
+        $comment->content = $post['content'];
+        $comment->post_id = $post['id'];
+        return $comment->save();
+    }
 
 }

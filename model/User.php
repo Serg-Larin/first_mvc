@@ -20,6 +20,7 @@ class User extends ModelMutator {
     protected $table = 'users';
 
     public const UPLOADS = 'public/images/uploads/users/';
+    public const IMAGE_PATH = '/images/uploads/users/';
 
     public const TYPE_BLOGGER = 1;
     public const TYPE_ADMIN = 2;
@@ -28,6 +29,10 @@ class User extends ModelMutator {
         self::TYPE_BLOGGER => 'блогер',
         self::TYPE_ADMIN   => 'админ'
     ];
+
+    public function getImage(){
+        return self::IMAGE_PATH.$this->image;
+    }
 
     public static function createNew($post,$image){
         return self::userUpdate($post,$image);

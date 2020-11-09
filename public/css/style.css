@@ -247,7 +247,18 @@ aside{
     background-color: lightskyblue;
     margin:5px;
 }
-
+.selected_page{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    color: lightblue;
+    border: 3px solid lightblue;
+    margin:5px;
+}
 
 footer{
     margin-top: 100px;
@@ -429,4 +440,14 @@ span.open_sub_comment_button{
 .new_comment textarea, .new_sub_comment textarea{
     width: 100%;
 }
+#comments_vision{
+    border-radius: 5px;
+}
 
+#comments_vision::selection {
+    background: transparent;
+}
+
+#comments_vision::-moz-selection {
+    background: transparent;
+}

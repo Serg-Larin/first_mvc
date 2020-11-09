@@ -8,7 +8,7 @@
 <div class="main_content_single_post" style="flex-wrap: wrap" >
     <div class="single_post_all_content">
     <div class="single_post_image" style="width: 100%;">
-        <img src="{{$post->image}}" alt="" width="600px" height="400px">
+        <img src="{{$post->getImage()}}" alt="" width="600px" height="400px">
     </div>
     <div class="single_post_title" >
         <span>{{$post->title}}</span>
@@ -16,7 +16,7 @@
     <div class="single_post_author">
         <span>author: </span>
         <span class="single_post_author_name">
-            {{$post->user()->login}}
+            {{$post->user()->first()->login}}
         </span>
     </div>
     <div class="single_post_content">
@@ -52,78 +52,57 @@
         <span> 20th of November 2020</span>
     </div>
     <div class="comment_button_space">
-        <div class="comment_button">
+        <div class="comment_button" id="comments_vision">
             Comments
         </div>
     </div>
-    <div class="comment_space">
+    <div class="comment_space" >
         <div class="new_comment">
-            <form action="" method="post">
+            <form action="" method="post" id="add_comment_form">
                 <div class="comment_user_name_space">
-                    <input type="text" name="email" placeholder="email">
-                </div>
-                    <div>
-                        <textarea name="content" id="" cols="30" rows="10" placeholder="Your comment"></textarea>
+                    <div class="form-group">
+                        <input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="Enter email">
+                        <input type="text" class="form-control" name="id" value="{{$post->id}}" hidden>
                     </div>
-                <div class="comment_submit_space">
-                    <input type="submit" name="comment" value="comment">
+                </div>
+                    <div class="form-group">
+                        <textarea class="form-control" name="content" id="" cols="30" rows="6" placeholder="Your comment"></textarea>
+                    </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary" id="add_comment_button">Добавить</button>
                 </div>
             </form>
         </div>
 
 
-        @if(!empty($post->comments()))
-        @foreach ($post->comments() as $comment)
-        <div class="comment" style="display:none;">
+        @if(!empty($post->comments()->get()))
+        @foreach ($post->comments()->get() as $comment)
+        <div class="comment" style="margin: 10px 10px; min-height: 150px;
+             /*padding-left: 15px; border-left: 10px solid lightblue;*/
+             -webkit-box-shadow: -8px 10px 20px 1px lightblue;
+            -moz-box-shadow: -8px 10px 20px 1px lightblue;
+            box-shadow: -8px 10px 20px 1px lightblue;
+            /*display: flex;*/
+            /*flex-direction: column;*/
+            /*justify-content: space-between;*/
+">
+           <div style="padding: 15px">
             <div class="comment_img_space">
-                <div>
-                    <img src="/uploads/user_images/187e1529063.jpg" id="img" alt="" class="comment_user_img">
-                </div>
                 <div class="comment_user_name">
                     {{$comment->email}}
                 </div>
             </div>
             <div class="comment_content">
-                <span>{{$comment->content}}</span>
+                <span>
+                    {{$comment->content}}
+                </span>
             </div>
-            <div class="date">{{$comment->date}}</div>
-            <div class="open_sub_comment">
-                <span class="open_sub_comment_button" ><i id="drop_down" class="fas fa-chevron-down fa-2x"></i></span>
+            <div class="date">
+                {{$comment->created_at}}
             </div>
-            <div class="new_sub_comment" >
-                <form action="" method="post">
-                    <div class="sub_comment_user_name_space">
-                        <input type="text" name="email" placeholder="email">
-                        <input type="text" value="5" name="comment_id" hidden>
-                    </div>
-                    <div class="sub_comment_content">
-                        <textarea name="content" id="" cols="30" rows="10" placeholder="Your comment"></textarea>
-                    </div>
-                    <div class="sub_comment_submit_space">
-                        <input type="submit" name="sub_comment" value="comment">
-                    </div>
-                </form>
-            </div>
-           @if(!empty($comment->sub_comment()))
-           @foreach ($comment->sub_comment() as $subcomment)
 
+           </div>
 
-            <div class="sub_comment">
-                <div class="sub_comment_img_space">
-                    <div>
-                        <img src="/uploads/user_images/187e1529063.jpg" id="img" alt="" class="sub_comment_user_img">
-                    </div>
-                    <div class="comment_user_name">
-                        {{$subcomment->email}}
-                    </div>
-                </div>
-                <div class="comment_content">
-                    <span>{{$subcomment->content}}</span>
-                </div>
-                <div class="date">{{$subcomment->date}}</div>
-            </div>
-            @endforeach
-            @endif
         </div>
               @endforeach
               @endif

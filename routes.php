@@ -1,7 +1,7 @@
 <?php
 
 return [
-    '' =>[
+    '(page=)*(\d+)*' =>[
         'controller' => controllers\MainController::class,
         'action'     => 'index',
         'method'     => 'get'
@@ -11,10 +11,9 @@ return [
         'action'     => 'singlePost',
         'method'     => 'get'
     ],
-    '/qwe' =>[
+    '(add_new_comment)' =>[
         'controller' => controllers\MainController::class,
-        'action'     => 'index',
-        'method'     => 'get'
+        'action'     => 'addNewComment',
     ],
     '(category)/(\w+)' =>[
         'controller' => controllers\MainController::class,
@@ -49,29 +48,13 @@ return [
         'controller' => controllers\CategoryController::class,
         'action'    => 'delete',
 
-    ],'(admin/category/ajax)/(\d+)' =>[
-        'controller' => 'category',
-        'action'    => 'getCategoryStatus',
-        'middleware' => 'auth'
     ],
-    'tester' =>[
-        'controller' => 'post',
-        'action'    => 'test',
-        'middleware' => 'auth'
-    ],
-
-
             //admin/posts
 
     '(admin/posts)' =>[
         'controller' => controllers\PostController::class,
         'action'    => 'display',
         'method'    => 'get'
-    ],
-    '(admin/posts)/(\d*)' =>[
-        'controller' => 'post',
-        'action'    => 'display',
-        'middleware' => 'auth'
     ],
     '(admin/posts/add)' =>[
         'controller' => controllers\PostController::class,
@@ -109,11 +92,6 @@ return [
         'controller' => controllers\TagController::class,
         'action'    => 'delete',
         'method'     => 'get'
-    ],
-    '(admin/tag/ajax)/(\d+)' =>[
-        'controller' => 'tag',
-        'action'    => 'getTagsStatus',
-        'middleware' => 'auth'
     ],
 
            //admin/users

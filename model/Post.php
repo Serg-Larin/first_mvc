@@ -4,6 +4,7 @@ namespace model;
 
 use components\DB;
 use components\Exceptions\CustomValidationException;
+use controllers\Auth;
 use model\extend\ModelMutator;
 use \Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use \Illuminate\Database\Eloquent\Relations\HasMany;
@@ -26,6 +27,7 @@ use \Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Post extends ModelMutator
 {
     public const UPLOADS = 'public/images/uploads/posts/';
+    public const IMAGE_PATH = '/images/uploads/posts/';
 
     public const TYPE_PUBLIC = 1;
     public const TYPE_NOT_PUBLIC = 0;
@@ -59,7 +61,7 @@ class Post extends ModelMutator
     }
 
     public function getImage(){
-        return '/images/'.$this->image;
+        return self::IMAGE_PATH.$this->image;
     }
 
     public static function createNew($postData,$image){
@@ -71,13 +73,23 @@ class Post extends ModelMutator
 
         if(isset($postData['categories'])){
             foreach($postData['categories'] as $category){
-                DB::builder()->table('post_category')->insert(['post_id'=>$post->id, 'category_id' =>$category]);
+                DB::builder()->table('post_category')->insert([
+                    'post_id'=>$post->id,
+                    'category_id' =>$category,
+                    'created_at' => formatDate(),
+                    'updated_at' => formatDate()
+                ]);
             }
         }
 
         if(isset($postData['tags'])){
             foreach($postData['tags'] as $tag){
-                DB::builder()->table('post_tag')->insert(['post_id'=>$post->id, 'tag_id' =>$tag]);
+                DB::builder()->table('post_tag')->insert([
+                    'post_id'=>$post->id,
+                    'tag_id' =>$tag,
+                    'created_at' => formatDate(),
+                    'updated_at' => formatDate()
+                ]);
             }
         }
         return true;
@@ -102,7 +114,7 @@ class Post extends ModelMutator
         } else {
             $post = new self();
         }
-        $post->author_id = 7;
+        $post->author_id = Auth::user()->id;
         $post->is_public = isset($postData['is_public'])?self::TYPE_PUBLIC:self::TYPE_NOT_PUBLIC;
         $post->title = $postData['title'];
         $post->short_description = $postData['short_description'];
@@ -130,7 +142,12 @@ class Post extends ModelMutator
                 $res = DB::builder()->table('post_category')->where('post_id', $post->id)->delete();
             }
             foreach($postData['categories'] as $category){
-                DB::builder()->table('post_category')->insert(['post_id'=>$post->id, 'category_id' =>$category]);
+                DB::builder()->table('post_category')->insert([
+                    'post_id'=>$post->id,
+                    'category_id' =>$category,
+                    'created_at' => formatDate(),
+                    'updated_at' => formatDate()
+                ]);
             }
         }
 
@@ -139,7 +156,12 @@ class Post extends ModelMutator
                 DB::builder()->table('post_tag')->where('post_id', $post->id)->delete();
             }
             foreach($postData['tags'] as $tag){
-                DB::builder()->table('post_tag')->insert(['post_id'=>$post->id, 'tag_id' =>$tag]);
+                DB::builder()->table('post_tag')->insert([
+                    'post_id'=>$post->id,
+                    'tag_id' =>$tag,
+                    'created_at' => formatDate(),
+                    'updated_at' => formatDate()
+                ]);
             }
         }
         return true;
