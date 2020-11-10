@@ -1,4 +1,4 @@
-@extends('adminLayouts.layout')
+@extends('admin.adminLayouts.layout')
 @section('content')
 
     <h1><b>New user</b></h1>
@@ -46,20 +46,13 @@
             let button = $('#add_user_button');
             button.attr('disabled',true);
 
-            $.ajax({
-                url: '/admin/user/add',
-                type: "POST",
-                data: form,
-                cache: false,
-                contentType: false,
-                processData: false,
-                dataType: 'json'
-            }).done(function (res) {
+            ajaxRequest( '/admin/user/add',form).done(function (res) {
                 console.log(res);
                 callMessage(res) ?  setTimeout(function (){
                     $(location).attr('href', '/admin/users')
                 },500) : button.removeAttr('disabled');
-            })
+            });
+
             e.preventDefault();
         })
     </script>

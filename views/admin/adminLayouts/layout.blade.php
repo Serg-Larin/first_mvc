@@ -28,7 +28,13 @@
 <body>
 
 <div class="row">
-    <nav class=" col-12 navbar navbar-expand-lg bg-dark" id="admin_nav">
+    <nav class=" col-12 navbar navbar-expand-lg bg-dark" id="admin_nav"
+        style="
+        display: flex;
+        justify-content: space-between;
+
+        "
+    >
 
 {{--        <div style="background-color: white;"><a href="/admin/logout">logout</a> </div>--}}
 {{--        <div class="collapse navbar-collapse" id="navbarsExampleDefault">--}}
@@ -50,6 +56,19 @@
                         <a class="dropdown-item" href="/admin/logout">logout</a>
                     </div>
                 </div>
+        <a href="/" style="text-decoration: none;">
+                    <div style="
+                padding: 5px;
+                color: white;
+                margin-left: 15px;
+                border-radius: 5px;
+                border: 2px solid lightblue;
+                cursor: pointer;
+
+        ">
+                    На главную
+                </div>
+        </a>
 
 {{--        </div>--}}
     </nav>
@@ -59,6 +78,7 @@
         <a href="/admin/categories"><div @if($_SERVER['REQUEST_URI']==='/admin/categories')class="admin_list_focus"@endif><b><i class="fas fa-align-justify"></i>Categories</b></div></a>
         <a href="/admin/tags"><div @if($_SERVER['REQUEST_URI']==='/admin/tags')class="admin_list_focus"@endif><b><i class="fas fa-tags"></i>Tags</b></div></a>
         <a href="/admin/users"><div @if($_SERVER['REQUEST_URI']==='/admin/users')class="admin_list_focus"@endif><b><i class="fas fa-user"></i>Users</b></div></a>
+        <a href="/admin/comments"><div @if($_SERVER['REQUEST_URI']==='/admin/comments')class="admin_list_focus"@endif><b><i class="fas fa-comment"></i>Comment</b></div></a>
     </div>
     <div class="col-10 content">
 

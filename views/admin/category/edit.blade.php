@@ -1,4 +1,4 @@
-@extends('adminLayouts.layout')
+@extends('admin.adminLayouts.layout')
 @section('content')
 <h1><b>Edit category</b></h1>
 <hr>
@@ -18,21 +18,12 @@
         let form = new FormData(this);
         let button = $('#edit_category');
         button.attr('disabled',true);
-
-        $.ajax({
-            url: '/admin/category/edit/{{$category->id}}',
-            type: "POST",
-            data: form,
-            cache: false,
-            contentType: false,
-            processData: false,
-            dataType: 'json'
-        }).done(function (res) {
-            console.log(res);
-            callMessage(res) ?  setTimeout(function (){
-                $(location).attr('href', '/admin/categories')
-            },500) : button.removeAttr('disabled');
-        })
+        ajaxRequest( '/admin/category/edit/{{$category->id}}',form).done(function (res) {
+                console.log(res);
+                callMessage(res) ?  setTimeout(function (){
+                    $(location).attr('href', '/admin/categories')
+                },500) : button.removeAttr('disabled');
+            });
         e.preventDefault();
     })
 </script>

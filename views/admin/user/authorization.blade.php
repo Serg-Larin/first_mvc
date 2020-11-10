@@ -39,7 +39,7 @@
         let form = new FormData(this);
         let button = $('#auth_button');
         button.attr('disabled',true);
-
+        console.log(form);
         $.ajax({
             url: '/account/login',
             type: "POST",

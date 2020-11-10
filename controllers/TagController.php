@@ -9,12 +9,12 @@ use model\Tag;
 use Respect\Validation\Validator;
 
 
-class TagController extends controller implements resource
+class TagController extends controller
 {
 
     public function display(){
         $tags =  Tag::All();
-        return view('tag.display',compact('tags'));
+        return view('admin.tag.display',compact('tags'));
     }
 
     public function edit($id){
@@ -33,7 +33,7 @@ class TagController extends controller implements resource
                 ]);
             }
         }else {
-            view('tag.edit', compact('tag'));
+            view('admin.tag.edit', compact('tag'));
         }
     }
 
@@ -51,7 +51,7 @@ class TagController extends controller implements resource
             ]);
         }
         else {
-            return view('tag.add');
+            return view('admin.tag.add');
         }
     }
     public function delete($id){

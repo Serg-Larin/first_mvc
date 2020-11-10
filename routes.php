@@ -126,6 +126,20 @@ return [
         'controller' => controllers\Auth::class,
         'action'     => 'login',
 
-    ]
+    ],
 
+    //admin/comment
+
+    'admin/comments' => [
+        'controller' => controllers\CommentController::class,
+        'action'     => 'display'
+    ],
+    '(admin/comment/edit)/(\d+)' => [
+        'controller' => controllers\CommentController::class,
+        'action'     => 'edit'
+    ],
+    'admin/comment/edit' => [
+        'controller' => controllers\CommentController::class,
+        'action'     => 'edit'
+    ]
 ];

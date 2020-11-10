@@ -36,7 +36,7 @@ class Auth extends controller
                 'code'    => CustomValidationException::TYPE_SUCCESS
             ]);
         } else {
-            return view('user.authorization');
+            return view('admin.user.authorization');
         }
     }
 

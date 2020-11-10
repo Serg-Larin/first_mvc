@@ -10,17 +10,17 @@ use Helpers\Helper;
 use Respect\Validation\Validator;
 use model\User;
 
-class UserController extends controller implements resource{
+class UserController extends controller{
 
 
     public function defaultPage(){
-        view('adminLayouts.layout');
+        view('admin.adminLayouts.layout');
     }
 
     public function display(){
         $users = User::all();
         $types = User::USER_TYPES_TEXT;
-        view('user.display',compact('users','types'));
+        view('admin.user.display',compact('users','types'));
     }
 
     public function add()
@@ -53,7 +53,7 @@ class UserController extends controller implements resource{
                 ]);
             }
         } else {
-            return view('user.add');
+            return view('admin.user.add');
         }
     }
 
@@ -91,7 +91,7 @@ class UserController extends controller implements resource{
                 ]);
             }
         } else {
-            return view('user.edit', compact('user'));
+            return view('admin.user.edit', compact('user'));
         }
     }
 

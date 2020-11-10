@@ -1,4 +1,4 @@
-@extends('adminLayouts.layout')
+@extends('admin.adminLayouts.layout')
 @section('content')
 
 <h1><b>Edit tag</b></h1>
@@ -20,20 +20,13 @@
         let button = $('#edit_tag_button');
         button.attr('disabled',true);
 
-        $.ajax({
-            url: '/admin/tag/edit/{{$tag->id}}',
-            type: "POST",
-            data: form,
-            cache: false,
-            contentType: false,
-            processData: false,
-            dataType: 'json'
-        }).done(function (res) {
+        ajaxRequest( '/admin/tag/edit/{{$tag->id}}',form).done(function (res) {
             console.log(res);
             callMessage(res) ?  setTimeout(function (){
                 $(location).attr('href', '/admin/tags')
             },500) : button.removeAttr('disabled');
-        })
+        });
+
         e.preventDefault();
     })
 </script>

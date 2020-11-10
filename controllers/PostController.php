@@ -11,11 +11,11 @@ use model\Tag;
 
 
 
-class PostController extends controller implements resource{
+class PostController extends controller {
 
     public function display($page=0){
         $posts = Post::all();
-        return view('post.display',compact('posts'));
+        return view('admin.post.display',compact('posts'));
     }
 
     public function add(){
@@ -58,7 +58,7 @@ class PostController extends controller implements resource{
 //                return true;
             }
         } else{
-            return view('post.add',compact('tags','categories'));
+            return view('admin.post.add',compact('tags','categories'));
         }
     }
 
@@ -110,7 +110,7 @@ class PostController extends controller implements resource{
             $categories = Category::All();
 
 
-            return view('post.edit', compact(
+            return view('admin.post.edit', compact(
                 'editedPost',
                 'postCategories',
                 'postTags',

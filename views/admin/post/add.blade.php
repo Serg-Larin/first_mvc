@@ -1,4 +1,4 @@
-@extends('adminLayouts.layout')
+@extends('admin.adminLayouts.layout')
 @section('content')
         <h1><b>New post</b></h1>
         <hr>
@@ -57,40 +57,13 @@
                 let form = new FormData(this);
                 let button = $('#postAdd');
                 button.attr('disabled',true);
-                    $.ajax({
-                        url: '/admin/posts/add',
-                        type: "POST",
-                        data: form,
-                        cache: false,
-                        contentType: false,
-                        processData: false,
-                        dataType: 'json'
-                    }).done(function (res) {
-                        console.log(res);
-                        callMessage(res) ?  setTimeout(function (){
-                            $(location).attr('href', '/admin/posts')
-                        },500) : button.removeAttr('disabled');
-                    })
+                ajaxRequest('/admin/posts/add',form).done(function (res) {
+                    console.log(res);
+                    callMessage(res) ?  setTimeout(function (){
+                        $(location).attr('href', '/admin/posts')
+                    },500) : button.removeAttr('disabled');
+                });
                 e.preventDefault();
             })
-            // $("#postAdd").on('click',function(){
-            //
-            //     let file = $('#exampleFormControlFile1').prop('files');
-            //     console.log(JSON.stringify(file,true));
-            //     console.log(file);
-            //     $.ajax({
-            //         url: '',
-            //         data: {
-            //             'file' : JSON.stringify(file)
-            //         },
-            //         processData: false,
-            //         contentType: false,
-            //         type: 'POST',
-            //         success: function (data) {
-            //             alert(data);
-            //         }
-            //     });
-            //     return false;
-            // });
         </script>
 @endsection

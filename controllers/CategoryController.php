@@ -8,11 +8,11 @@ use Helpers\Helper;
 use model\Category;
 use Respect\Validation\Validator;
 
-class CategoryController extends controller implements resource {
+class CategoryController extends controller  {
 
     public function display(){
        $categories =  Category::All();
-       return view('category.display',compact('categories'));
+       return view('admin.category.display',compact('categories'));
     }
 
     public function edit($id){
@@ -32,7 +32,7 @@ class CategoryController extends controller implements resource {
                 ]);
             }
         } else {
-            view('category.edit', compact('category'));
+            view('admin.category.edit', compact('category'));
         }
     }
 
@@ -50,7 +50,7 @@ class CategoryController extends controller implements resource {
             ]);
         }
         else {
-            return view('category.add');
+            return view('admin.category.add');
         }
     }
     public function delete($id){

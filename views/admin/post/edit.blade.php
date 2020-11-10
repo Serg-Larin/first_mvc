@@ -1,4 +1,4 @@
-@extends('adminLayouts.layout')
+@extends('admin.adminLayouts.layout')
 @section('content')
     <script>
         $(function(){
@@ -81,20 +81,12 @@
             let button = $('#postEdit');
             button.attr('disabled',true);
 
-            $.ajax({
-                url: '/admin/posts/edit/{{$editedPost->id}}',
-                type: "POST",
-                data: form,
-                cache: false,
-                contentType: false,
-                processData: false,
-                dataType: 'json'
-            }).done(function (res) {
+            ajaxRequest( '/admin/posts/edit/{{$editedPost->id}}',form).done(function (res) {
                 console.log(res);
                 callMessage(res) ?  setTimeout(function (){
                     $(location).attr('href', '/admin/posts')
                 },500) : button.removeAttr('disabled');
-            })
+            });
             e.preventDefault();
         })
         // })
